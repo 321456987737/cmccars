@@ -117,16 +117,22 @@ export default function Header() {
             aria-label={`${BUSINESS_NAME} home`}
             className="flex shrink-0 items-center  gap-1.5"
           >
-            <Image
+            {/* <Image
               src="/logo.png"
               alt=""
               width={44}
               height={44}
               className="h-9 w-fit object-contain"
             />
-            {/* <span className="text-sm font-semibold tracking-tight text-white">
-              {BUSINESS_NAME}
-            </span> */}
+        */}
+        <Image
+  src="/logo.png"
+  alt="Logo"
+  width={200}
+  height={200}
+  className="h-9 w-auto object-contain"
+  quality={100}
+/>
           </Link>
 
           {/* Navigation */}
@@ -209,13 +215,21 @@ export default function Header() {
             aria-label={`${BUSINESS_NAME} home`}
             className="flex min-w-0 shrink items-center gap-2.5"
           >
-            <Image
+            {/* <Image
               src="/logo.png"
               alt=""
               width={38}
               height={38}
               className="h-9 w-fit shrink-0 object-contain"
-            />
+            /> */}
+            <Image
+  src="/logo.png"
+  alt="Logo"
+  width={38}
+  height={38}
+  className="h-9 w-auto shrink-0 object-contain"
+  quality={100}
+/>
             <span className="truncate text-sm font-semibold tracking-tight text-white">
               {BUSINESS_NAME}
             </span>
