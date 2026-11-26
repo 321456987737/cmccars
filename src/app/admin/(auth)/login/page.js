@@ -56,9 +56,10 @@ export default function AdminLoginPage() {
             <Image
               src="/logo.png"
               alt=""
-              width={44}
-              height={44}
-              className="mx-auto h-15 w-fit object-contain"
+              width={200}
+              height={200}
+              className="mx-auto h-15 w-fit object-contain invert"
+             
             />
 
             <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.24em] text-black/35">

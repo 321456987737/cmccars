@@ -95,9 +95,9 @@ export default function AdminSignupPage() {
             <Image
               src="/logo.png"
               alt=""
-              width={44}
-              height={44}
-              className="h-15 w-fit shrink-0 object-contain"
+              width={200}
+              height={200}
+              className="h-15 w-fit shrink-0 object-contain invert"
               />
               </div>
 
