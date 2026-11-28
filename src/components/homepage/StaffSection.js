@@ -14,43 +14,43 @@ import {
 const staff = [
   {
     id: 1,
-    name: "Team Member One",
-    role: "Showroom Manager",
+    name: "Miembro del equipo uno",
+    role: "Responsable del concesionario",
     image: "/images/people/1.webp",
     description:
-      "Helping customers find the right vehicle and enjoy a smooth showroom experience.",
+      "Ayudando a los clientes a encontrar el vehículo adecuado y disfrutar de una experiencia cómoda en el concesionario.",
   },
   {
     id: 2,
-    name: "Team Member Two",
-    role: "Sales Consultant",
+    name: "Miembro del equipo dos",
+    role: "Consultor de ventas",
     image: "/images/people/2.webp",
     description:
-      "Guiding customers through vehicle details, available options, and showroom visits.",
+      "Orientando a los clientes sobre los detalles del vehículo, las opciones disponibles y las visitas al concesionario.",
   },
   {
     id: 3,
-    name: "Team Member Three",
-    role: "Vehicle Specialist",
+    name: "Miembro del equipo tres",
+    role: "Especialista en vehículos",
     image: "/images/people/3.jpg",
     description:
-      "Helping customers understand vehicle specifications and choose with confidence.",
+      "Ayudando a los clientes a comprender las especificaciones del vehículo y elegir con confianza.",
   },
   {
     id: 4,
-    name: "Team Member Four",
-    role: "Sales Consultant",
+    name: "Miembro del equipo cuatro",
+    role: "Consultor de ventas",
     image: "/images/people/4.webp",
     description:
-      "Helping customers explore the inventory and find a vehicle that suits their needs.",
+      "Ayudando a los clientes a explorar el inventario y encontrar un vehículo que se adapte a sus necesidades.",
   },
   {
     id: 5,
-    name: "Team Member Five",
-    role: "Customer Relations",
+    name: "Miembro del equipo cinco",
+    role: "Atención al cliente",
     image: "/images/people/5.webp",
     description:
-      "Making every customer interaction clear, welcoming, and straightforward.",
+      "Haciendo que cada interacción con el cliente sea clara, acogedora y directa.",
   },
   
 ];
@@ -87,8 +87,8 @@ export default function StaffSection() {
     emblaApi?.scrollPrev();
   }, [emblaApi]);
 
-  const scrollNext = useCallback(() => {
-    emblaApi?.scrollNext();
+  const scrollSiguiente = useCallback(() => {
+    emblaApi?.scrollSiguiente();
   }, [emblaApi]);
 
   const onSelect = useCallback((api) => {
@@ -121,7 +121,7 @@ export default function StaffSection() {
               viewport={{ once: true, amount: 0.4 }}
               className="mb-4 font-montserrat text-[9px] font-medium uppercase tracking-[0.35em] text-black/30 md:text-[10px]"
             >
-              The people behind the experience
+              Las personas detrás de la experiencia
             </motion.p>
 
             <motion.h2
@@ -131,9 +131,9 @@ export default function StaffSection() {
               viewport={{ once: true, amount: 0.4 }}
               className="font-bebas text-[clamp(4.5rem,9vw,9rem)] leading-[0.8] tracking-[-0.04em]"
             >
-              GOOD PEOPLE.
+              BUENA GENTE.
               <br />
-              GREAT SERVICE.
+              GRAN SERVICIO.
             </motion.h2>
           </div>
 
@@ -147,14 +147,14 @@ export default function StaffSection() {
             <p className="font-montserrat text-[10px] leading-[1.9] tracking-[0.05em] text-black/45 md:text-[11px]">
               Behind every great showroom experience is a team that cares
               about getting the details right. Meet the people ready to help
-              you find your next vehicle.
+              you find your next vehículo.
             </p>
 
             <a
               href="/contact"
               className="group mt-6 inline-flex items-center gap-3 border-b border-black/20 pb-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-black md:text-[10px]"
             >
-              Meet us at the showroom
+              Visítanos en el concesionario
               <ArrowUpRight
                 size={14}
                 strokeWidth={1.4}
@@ -171,7 +171,7 @@ export default function StaffSection() {
             type="button"
             onClick={scrollPrev}
             disabled={!emblaApi?.canScrollPrev()}
-            aria-label="Previous team members"
+            aria-label="Miembros anteriores del equipo"
             className="absolute left-0 top-[35%] z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-black/15 bg-[#f7f7f5] text-black transition-all duration-300 hover:bg-black hover:text-white disabled:pointer-events-none disabled:opacity-30 md:h-12 md:w-12"
           >
             <ArrowLeft size={17} strokeWidth={1.3} />
@@ -180,9 +180,9 @@ export default function StaffSection() {
           {/* RIGHT NAVIGATION */}
           <button
             type="button"
-            onClick={scrollNext}
-            disabled={!emblaApi?.canScrollNext()}
-            aria-label="Next team members"
+            onClick={scrollSiguiente}
+            disabled={!emblaApi?.canScrollSiguiente()}
+            aria-label="Miembros siguientes del equipo"
             className="absolute right-0 top-[35%] z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-black/15 bg-[#f7f7f5] text-black transition-all duration-300 hover:bg-black hover:text-white disabled:pointer-events-none disabled:opacity-30 md:h-12 md:w-12"
           >
             <ArrowRight size={17} strokeWidth={1.3} />
@@ -220,7 +220,7 @@ export default function StaffSection() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-100" />
 
                       <span className="absolute left-4 top-4 border border-white/30 bg-black/20 px-3 py-2 font-montserrat text-[8px] uppercase tracking-[0.2em] text-white backdrop-blur-sm">
-                        Team / {String(person.id).padStart(2, "0")}
+                        Equipo / {String(person.id).padStart(2, "0")}
                       </span>
 
                       <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">
@@ -314,51 +314,51 @@ export default function StaffSection() {
 // const staff = [
 //   {
 //     id: 1,
-//     name: "Team Member One",
-//     role: "Showroom Manager",
+//     name: "Miembro del equipo uno",
+//     role: "Responsable del concesionario",
 //     image: "/images/staff/team-1.jpg",
 //     description:
-//       "Helping customers find the right vehicle and enjoy a smooth showroom experience.",
+//       "Ayudando a los clientes a encontrar el vehículo adecuado y disfrutar de una experiencia cómoda en el concesionario.",
 //   },
 //   {
 //     id: 2,
-//     name: "Team Member Two",
-//     role: "Sales Consultant",
+//     name: "Miembro del equipo dos",
+//     role: "Consultor de ventas",
 //     image: "/images/staff/team-2.jpg",
 //     description:
-//       "Guiding customers through vehicle details, available options, and showroom visits.",
+//       "Orientando a los clientes sobre los detalles del vehículo, las opciones disponibles y las visitas al concesionario.",
 //   },
 //   {
 //     id: 3,
-//     name: "Team Member Three",
-//     role: "Vehicle Specialist",
+//     name: "Miembro del equipo tres",
+//     role: "Especialista en vehículos",
 //     image: "/images/staff/team-3.jpg",
 //     description:
-//       "Helping customers understand vehicle specifications and choose with confidence.",
+//       "Ayudando a los clientes a comprender las especificaciones del vehículo y elegir con confianza.",
 //   },
 //   {
 //     id: 4,
-//     name: "Team Member Three",
-//     role: "Vehicle Specialist",
+//     name: "Miembro del equipo tres",
+//     role: "Especialista en vehículos",
 //     image: "/images/staff/team-3.jpg",
 //     description:
-//       "Helping customers understand vehicle specifications and choose with confidence.",
+//       "Ayudando a los clientes a comprender las especificaciones del vehículo y elegir con confianza.",
 //   },
 //   {
 //     id: 5,
-//     name: "Team Member Three",
-//     role: "Vehicle Specialist",
+//     name: "Miembro del equipo tres",
+//     role: "Especialista en vehículos",
 //     image: "/images/staff/team-3.jpg",
 //     description:
-//       "Helping customers understand vehicle specifications and choose with confidence.",
+//       "Ayudando a los clientes a comprender las especificaciones del vehículo y elegir con confianza.",
 //   },
 //   {
 //     id: 6,
-//     name: "Team Member Three",
-//     role: "Vehicle Specialist",
+//     name: "Miembro del equipo tres",
+//     role: "Especialista en vehículos",
 //     image: "/images/staff/team-3.jpg",
 //     description:
-//       "Helping customers understand vehicle specifications and choose with confidence.",
+//       "Ayudando a los clientes a comprender las especificaciones del vehículo y elegir con confianza.",
 //   },
 // ];
 
@@ -376,7 +376,7 @@ export default function StaffSection() {
 //               transition={{ duration: 0.45 }}
 //               className="mb-4 font-montserrat text-[9px] font-medium uppercase tracking-[0.35em] text-black/30 md:text-[10px]"
 //             >
-//               The people behind the experience
+//               Las personas detrás de la experiencia
 //             </motion.p>
 
 //             <motion.h2
@@ -389,9 +389,9 @@ export default function StaffSection() {
 //               }}
 //               className="font-bebas text-[clamp(4.5rem,9vw,9rem)] leading-[0.8] tracking-[-0.04em] text-black"
 //             >
-//               GOOD PEOPLE.
+//               BUENA GENTE.
 //               <br />
-//               GREAT SERVICE.
+//               GRAN SERVICIO.
 //             </motion.h2>
 //           </div>
 
@@ -405,14 +405,14 @@ export default function StaffSection() {
 //             <p className="font-montserrat text-[10px] leading-[1.9] tracking-[0.05em] text-black/45 md:text-[11px]">
 //               Behind every great showroom experience is a team that cares
 //               about getting the details right. Meet the people ready to help
-//               you find your next vehicle.
+//               you find your next vehículo.
 //             </p>
 
 //             <a
 //               href="#contact"
 //               className="group mt-6 inline-flex items-center gap-3 border-b border-black/20 pb-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.15em] transition-colors hover:border-black md:text-[10px]"
 //             >
-//               Meet us at the showroom
+//               Visítanos en el concesionario
 //               <ArrowUpRight
 //                 size={14}
 //                 strokeWidth={1.4}
@@ -450,7 +450,7 @@ export default function StaffSection() {
 //                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-90" />
 
 //                 <span className="absolute left-4 top-4 border border-white/35 bg-black/20 px-3 py-2 font-montserrat text-[8px] uppercase tracking-[0.2em] text-white backdrop-blur-sm">
-//                   Team / {String(person.id).padStart(2, "0")}
+//                   Equipo / {String(person.id).padStart(2, "0")}
 //                 </span>
 
 //                 <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-3">

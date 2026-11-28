@@ -113,10 +113,10 @@ export default function NotFoundPage() {
 
             <p className="mt-6 max-w-sm font-montserrat text-sm leading-7 text-white/45">
               The page you're looking for doesn't exist, has been moved,
-              or is temporarily unavailable. Let's get you back on the road.
+              o no está disponible temporalmente. Volvamos a ponerte en ruta.
             </p>
 
-            {/* Actions */}
+            {/* Acciones */}
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/"
@@ -134,7 +134,7 @@ export default function NotFoundPage() {
                 href="/cars"
                 className="flex items-center justify-center gap-3 rounded-lg border border-white/10 bg-white/[0.04] px-6 py-4 font-montserrat text-xs font-bold uppercase tracking-wide text-white/80 transition-all hover:border-white/25 hover:bg-white/[0.08]"
               >
-                Explore inventory
+                Explorar inventario
                 <ArrowUpRight size={15} />
               </Link>
             </div>
@@ -143,7 +143,7 @@ export default function NotFoundPage() {
             <div className="mt-12 flex items-center gap-3">
               <div className="h-px w-8 bg-white/20" />
               <span className="font-montserrat text-[9px] font-semibold uppercase tracking-[0.25em] text-white/30">
-                Your next drive starts here
+                Tu próxima conducción empieza aquí
               </span>
             </div>
           </div>

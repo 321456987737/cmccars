@@ -8,39 +8,39 @@ import { useState } from "react";
 const faqs = [
   {
     id: 1,
-    question: "Are all vehicles available for viewing?",
+    question: "¿Se pueden ver todos los vehículos disponibles?",
     answer:
-      "Our available vehicles can be viewed at the showroom. We recommend contacting our team before visiting so we can confirm availability and have your preferred vehicle ready.",
+      "Puedes ver nuestros vehículos disponibles en el concesionario. Recomendamos contactar con nuestro equipo antes de la visita para confirmar la disponibilidad y preparar el vehículo que prefieras.",
   },
   {
     id: 2,
-    question: "Can I book a test drive?",
+    question: "¿Puedo reservar una prueba de manejo?",
     answer:
-      "Yes. You can request a test drive for eligible vehicles through our website or by contacting our team directly. We will arrange a suitable date and time.",
+      "Sí. Puedes solicitar una prueba de manejo para los vehículos elegibles a través de nuestro sitio web o contactando directamente con nuestro equipo. Organizaremos una fecha y hora adecuadas.",
   },
   {
     id: 3,
-    question: "Do you accept trade-ins?",
+    question: "¿Aceptan vehículos a cambio?",
     answer:
-      "Yes. We can review your current vehicle as part of a trade-in. Share your vehicle details with our team and we will guide you through the valuation process.",
+      "Sí. Podemos valorar tu vehículo actual como parte de un cambio. Comparte los datos del vehículo con nuestro equipo y te guiaremos durante el proceso de valoración.",
   },
   {
     id: 4,
-    question: "Do you offer vehicle financing?",
+    question: "¿Ofrecen financiación de vehículos?",
     answer:
-      "Financing options may be available depending on the vehicle and your requirements. Contact our team to discuss the available options for your purchase.",
+      "Las opciones de financiación pueden estar disponibles según el vehículo y tus necesidades. Contacta con nuestro equipo para revisar las opciones disponibles para tu compra.",
   },
   {
     id: 5,
-    question: "Can I reserve a vehicle?",
+    question: "¿Puedo reservar un vehículo?",
     answer:
-      "Selected vehicles may be reserved for a limited period. Reservation availability and terms vary by vehicle, so please contact us for current details.",
+      "Algunos vehículos pueden reservarse por un periodo limitado. La disponibilidad y las condiciones de reserva varían según el vehículo; contacta con nosotros para consultar los detalles actuales.",
   },
   {
     id: 6,
-    question: "Do you offer vehicle delivery?",
+    question: "¿Ofrecen entrega de vehículos?",
     answer:
-      "Delivery arrangements can be discussed with our team based on the vehicle and destination. Contact us and we will provide the available delivery options.",
+      "Las opciones de entrega pueden acordarse con nuestro equipo según el vehículo y el destino. Contáctanos y te informaremos sobre las opciones disponibles.",
   },
 ];
 
@@ -85,7 +85,7 @@ export default function FAQSection() {
               }}
               className="mb-4 font-montserrat text-[9px] font-medium uppercase tracking-[0.35em] text-black/30 md:text-[10px]"
             >
-              Need to know
+Información importante
             </motion.p>
 
             {/* TITLE */}
@@ -135,8 +135,8 @@ export default function FAQSection() {
               }}
               className="mt-7 max-w-sm font-montserrat text-[10px] leading-[1.8] tracking-[0.06em] text-black/40 md:text-[11px]"
             >
-              Everything you need to know before finding your next vehicle.
-              For anything else, our team is always here to help.
+              Todo lo que necesitas saber antes de encontrar tu próximo vehículo.
+              Para cualquier otra consulta, nuestro equipo estará encantado de ayudarte.
             </motion.p>
           </div>
 

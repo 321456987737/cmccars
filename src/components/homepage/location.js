@@ -124,7 +124,7 @@ export default function LocationSection() {
                 href="/cars"
                 className="group inline-flex items-center gap-3 border border-white/35 bg-white px-6 py-3.5 font-montserrat text-[9px] font-medium uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-transparent hover:text-white md:px-7 md:py-4"
               >
-                Browse inventory
+                Explorar inventario
                 <ArrowUpRight
                   size={15}
                   strokeWidth={1.3}

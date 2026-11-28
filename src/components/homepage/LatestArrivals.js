@@ -6,9 +6,9 @@ import { useCallback, useEffect, useState } from "react";
 import { ArrowUpRight, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 
-function formatPrice(price, currency) {
+function formatPrecio(price, currency) {
   if (typeof price !== "number") {
-    return "Price on request";
+    return "Consultar precio";
   }
 
   try {
@@ -29,7 +29,7 @@ function getImage(car) {
   );
 }
 
-function VehicleCard({ car, index }) {
+function CarCard({ car, index }) {
   const title = [car.year, car.make, car.model]
     .filter(Boolean)
     .join(" ");
@@ -37,7 +37,7 @@ function VehicleCard({ car, index }) {
   const imageAlt =
     car.images?.find((image) => image?.url)?.alt ||
     title ||
-    "Vehicle in the showroom";
+    "Vehículo en exposición";
 
   return (
     <motion.article
@@ -53,9 +53,9 @@ function VehicleCard({ car, index }) {
       <Link
         href={car._id ? `/cars/${car._id}` : "/cars"}
         className="block h-full"
-        aria-label={`View ${title}`}
+        aria-label={`Ver ${title}`}
       >
-        {/* Vehicle image */}
+        {/* Vehículo image */}
         <div className="relative aspect-[4/3] overflow-hidden border border-white/10 bg-white/[0.035]">
           <Image
             src={getImage(car)}
@@ -76,14 +76,14 @@ function VehicleCard({ car, index }) {
           </span>
         </div>
 
-        {/* Vehicle details */}
+        {/* Vehículo details */}
         <div className="border-x border-b border-white/10 p-5 sm:p-6">
           <p className="mb-2 truncate font-montserrat text-[8px] font-medium uppercase tracking-[0.25em] text-white/40 sm:text-[9px]">
-            {car.make || "Selected vehicle"}
+            {car.make || "Selected vehículo"}
           </p>
 
           <h3 className="font-bebas text-3xl leading-[0.95] tracking-[-0.025em] text-white sm:text-4xl">
-            {car.model || "Vehicle details"}
+            {car.model || "Vehículo details"}
           </h3>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 font-montserrat text-[8px] uppercase tracking-[0.14em] text-white/40">
@@ -94,7 +94,7 @@ function VehicleCard({ car, index }) {
                 <span className="h-[3px] w-[3px] rounded-full bg-white/25" />
                 <span>
                   {Number(car.mileage).toLocaleString("en-US")}{" "}
-                  {car.mileageUnit || "km"}
+                  {car.mileageUnidad || "km"}
                 </span>
               </>
             )}
@@ -109,11 +109,11 @@ function VehicleCard({ car, index }) {
 
           <div className="mt-6 flex items-end justify-between gap-3 border-t border-white/10 pt-5">
             <span className="font-montserrat text-[8px] uppercase tracking-[0.2em] text-white/35">
-              Price
+              Precio
             </span>
 
             <span className="text-right font-montserrat text-sm font-medium tracking-[0.01em] text-white">
-              {formatPrice(car.price, car.currency)}
+              {formatPrecio(car.price, car.currency)}
             </span>
           </div>
         </div>
@@ -122,7 +122,7 @@ function VehicleCard({ car, index }) {
   );
 }
 
-function VehicleCardSkeleton() {
+function CarCardSkeleton() {
   return (
     <div className="animate-pulse overflow-hidden" aria-hidden="true">
       <div className="aspect-[4/3] bg-white/[0.06]" />
@@ -179,7 +179,7 @@ export default function LatestArrivals() {
         return;
       }
 
-      console.error("Latest arrivals fetch error:", fetchError);
+      console.error("Últimas llegadas fetch error:", fetchError);
 
       setError(
         "We couldn't load the latest arrivals. Please try again."
@@ -230,7 +230,7 @@ useEffect(() => {
               transition={{ duration: 0.5, delay: 0.04 }}
               className="font-bebas text-5xl leading-[0.88] tracking-[-0.035em] sm:text-6xl md:text-7xl lg:text-[clamp(5rem,7vw,7.5rem)]"
             >
-              Latest arrivals
+              Últimas llegadas
             </motion.h2>
           </div>
 
@@ -238,7 +238,7 @@ useEffect(() => {
             href="/cars"
             className="group inline-flex w-fit items-center gap-3 border-b border-white/25 pb-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.18em] text-white/65 transition-colors duration-300 hover:border-white hover:text-white"
           >
-            View all vehicles
+            Ver all vehículos
 
             <ArrowUpRight
               size={15}
@@ -252,7 +252,7 @@ useEffect(() => {
         {status === "loading" ? (
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 4 }, (_, index) => (
-              <VehicleCardSkeleton key={index} />
+              <CarCardSkeleton key={index} />
             ))}
           </div>
         ) : status === "error" ? (
@@ -278,7 +278,7 @@ useEffect(() => {
           /* Empty state */
           <div className="flex min-h-64 flex-col items-center justify-center border border-white/10 px-6 text-center">
             <p className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-white/45">
-              No new vehicles are available right now.
+              No new vehículos are available right now.
             </p>
 
             <Link
@@ -289,10 +289,10 @@ useEffect(() => {
             </Link>
           </div>
         ) : (
-          /* Latest arrivals grid */
+          /* Últimas llegadas grid */
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {cars.slice(0, 8).map((car, index) => (
-              <VehicleCard
+              <CarCard
                 key={
                   car._id ||
                   `${car.make}-${car.model}-${index}`
@@ -310,7 +310,7 @@ useEffect(() => {
             href="/cars"
             className="group inline-flex min-h-12 items-center justify-center gap-3 border border-white/30 px-6 py-4 font-montserrat text-[9px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-black sm:px-8"
           >
-            Discover all vehicles
+            Discover all vehículos
 
             <ArrowUpRight
               size={15}

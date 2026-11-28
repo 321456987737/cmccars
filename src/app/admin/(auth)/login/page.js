@@ -32,7 +32,7 @@ export default function AdminLoginPage() {
       });
 
       if (!result || result.error) {
-        setError("Invalid email or password.");
+        setError("Correo electrónico o contraseña no válidos.");
         setLoading(false);
         return;
       }
@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
     } catch (error) {
       console.error("LOGIN ERROR:", error);
 
-      setError("Limit reached. Please try again later.");
+      setError("Se alcanzó el límite. Inténtalo de nuevo más tarde.");
       setLoading(false);
     }
   }
@@ -67,11 +67,11 @@ export default function AdminLoginPage() {
             </p>
 
             <h1 className="mt-3 text-3xl font-semibold tracking-tight text-[#181818]">
-              Welcome back.
+              Bienvenido de nuevo.
             </h1>
 
             <p className="mx-auto mt-2 max-w-xs text-sm leading-6 text-black/45">
-              Sign in to manage your dealership.
+              Inicia sesión para gestionar tu concesionario.
             </p>
           </div>
 
@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
                 htmlFor="email"
                 className="mb-2 block text-sm font-medium text-black/75"
               >
-                Email address
+                Dirección de correo electrónico
               </label>
 
               <div className="relative">
@@ -112,7 +112,7 @@ export default function AdminLoginPage() {
                 htmlFor="password"
                 className="mb-2 block text-sm font-medium text-black/75"
               >
-                Password
+                Contraseña
               </label>
 
               <div className="relative">
@@ -127,7 +127,7 @@ export default function AdminLoginPage() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="Introduce tu contraseña"
                   autoComplete="current-password"
                   required
                   className="h-13 w-full rounded-2xl border border-black/10 bg-[#fafafa] pl-11 pr-14 text-sm text-black outline-none transition placeholder:text-black/25 hover:border-black/20 focus:border-black/30 focus:bg-white focus:ring-4 focus:ring-black/[0.03]"
@@ -137,7 +137,7 @@ export default function AdminLoginPage() {
                   type="button"
                   onClick={() => setShowPassword((current) => !current)}
                   aria-label={
-                    showPassword ? "Hide password" : "Show password"
+                    showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
                   }
                   className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-xl text-black/35 transition hover:bg-black/[0.05] hover:text-black"
                 >
@@ -163,7 +163,7 @@ export default function AdminLoginPage() {
               disabled={loading}
               className="group flex h-13 w-full items-center justify-center gap-2 rounded-2xl bg-[#181818] px-5 text-sm font-semibold text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <span>{loading ? "Signing in..." : "Sign In"}</span>
+              <span>{loading ? "Iniciando sesión..." : "Iniciar sesión"}</span>
 
               {!loading && (
                 <ArrowRight

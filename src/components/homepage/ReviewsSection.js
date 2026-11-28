@@ -7,30 +7,30 @@ import { ArrowUpRight, Quote, Star } from "lucide-react";
 const reviews = [
   {
     id: 1,
-    name: "Sample customer 01",
-    location: "Demo testimonial",
+    name: "Cliente de ejemplo 01",
+    location: "Testimonio de demostración",
     date: "Demo content",
     rating: 5,
-    text: "A professional and straightforward experience. The team was helpful, answered my questions clearly, and made the entire process comfortable.",
-    vehicle: "Vehicle purchase",
+    text: "Una experiencia profesional y directa. El equipo fue amable, respondió claramente a mis preguntas y hizo que todo el proceso fuera cómodo.",
+    vehículo: "Compra de vehículo",
   },
   {
     id: 2,
-    name: "Sample customer 02",
-    location: "Demo testimonial",
+    name: "Cliente de ejemplo 02",
+    location: "Testimonio de demostración",
     date: "Demo content",
     rating: 5,
-    text: "The showroom had a great selection of vehicles. I appreciated the attention to detail and the time taken to explain everything.",
-    vehicle: "Showroom experience",
+    text: "La exposición tenía una gran selección de vehículos. Aprecié la atención al detalle y el tiempo dedicado a explicarlo todo.",
+    vehículo: "Experiencia en la exposición",
   },
   {
     id: 3,
-    name: "Sample customer 03",
-    location: "Demo testimonial",
+    name: "Cliente de ejemplo 03",
+    location: "Testimonio de demostración",
     date: "Demo content",
     rating: 5,
-    text: "A smooth experience from the first conversation to the showroom visit. Communication was clear and the team was easy to deal with.",
-    vehicle: "Customer service",
+    text: "Una experiencia sencilla desde la primera conversación hasta la visita a la exposición. La comunicación fue clara y el equipo fue muy accesible.",
+    vehículo: "Servicio al cliente",
   },
 ];
 
@@ -83,7 +83,7 @@ export default function ReviewsSection() {
               className="mt-6 max-w-md font-montserrat text-[10px] leading-[1.9] tracking-[0.04em] text-black/40 md:text-[11px]"
             >
               Buying a car is a personal decision. We believe the experience
-              should be just as good as the vehicle you drive home.
+              should be just as good as the vehículo you drive home.
             </motion.p>
           </div>
 
@@ -95,7 +95,7 @@ export default function ReviewsSection() {
             transition={{ duration: 0.5 }}
             className="group inline-flex w-fit items-center gap-3 border-b border-black/20 pb-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.16em] transition-colors hover:border-black md:text-[10px]"
           >
-            Talk to our team
+            Habla con nuestro equipo
             <ArrowUpRight
               size={14}
               strokeWidth={1.4}
@@ -157,7 +157,7 @@ export default function ReviewsSection() {
                   </div>
 
                   <span className="text-right font-montserrat text-[8px] uppercase tracking-[0.1em] text-black/30">
-                    {review.vehicle}
+                    {review.vehículo}
                   </span>
                 </div>
               </div>
@@ -181,7 +181,7 @@ export default function ReviewsSection() {
             href="/contact"
             className="group inline-flex w-fit items-center gap-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.14em] hover:text-black/55"
           >
-            Get in touch
+            Ponerse en contacto
             <ArrowUpRight
               size={13}
               strokeWidth={1.4}

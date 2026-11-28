@@ -111,10 +111,21 @@ export async function PATCH(
       "images",
       "status",
       "isFeatured",
+      "isDestacado",
     ];
 
     for (const field of allowedFields) {
       if (body[field] === undefined) {
+        continue;
+      }
+
+      if (field === "isDestacado") {
+        existingCar.isFeatured = Boolean(body[field]);
+        continue;
+      }
+
+      if (field === "isFeatured") {
+        existingCar.isFeatured = Boolean(body[field]);
         continue;
       }
 
@@ -162,6 +173,32 @@ export async function PATCH(
         }
 
         existingCar[field] = value;
+        continue;
+      }
+
+      if (field === "status") {
+        const statusMap = {
+          Disponible: "Available",
+          Reservado: "Reserved",
+          Vendido: "Sold",
+          Available: "Available",
+          Reserved: "Reserved",
+          Sold: "Sold",
+        };
+
+        existingCar.status = statusMap[body[field]] || body[field];
+        continue;
+      }
+
+      if (field === "condition") {
+        const conditionMap = {
+          Nuevo: "New",
+          Usado: "Used",
+          New: "New",
+          Used: "Used",
+        };
+
+        existingCar.condition = conditionMap[body[field]] || body[field];
         continue;
       }
 

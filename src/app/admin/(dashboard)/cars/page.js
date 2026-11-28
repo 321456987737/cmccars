@@ -12,8 +12,8 @@ export default function AdminCarsPage() {
     limit: 15,
     total: 0,
     totalPages: 0,
-    hasNextPage: false,
-    hasPreviousPage: false,
+    hasSiguientePage: false,
+    hasAnteriorPage: false,
   });
 
   const [search, setSearch] = useState("");
@@ -48,19 +48,14 @@ export default function AdminCarsPage() {
       params.set("page", String(page));
       params.set("limit", "15");
 
-      const response = await fetch(
-        `/api/admin/cars?${params.toString()}`,
-        {
-          cache: "no-store",
-        },
-      );
+      const response = await fetch(`/api/admin/cars?${params.toString()}`, {
+        cache: "no-store",
+      });
 
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        throw new Error(
-          result.message || "Failed to load inventory",
-        );
+        throw new Error(result.message || "No se pudo cargar el inventario");
       }
 
       setCars(result.data.cars);
@@ -68,9 +63,7 @@ export default function AdminCarsPage() {
     } catch (loadError) {
       console.error(loadError);
 
-      setError(
-        loadError.message || "Failed to load inventory",
-      );
+      setError(loadError.message || "No se pudo cargar el inventario");
     } finally {
       setLoading(false);
     }
@@ -94,24 +87,21 @@ export default function AdminCarsPage() {
       setActionId(carId);
       setError("");
 
-      const response = await fetch(
-        `/api/admin/cars/${carId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            status: nextStatus,
-          }),
+      const response = await fetch(`/api/admin/cars/${carId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          status: nextStatus,
+        }),
+      });
 
       const result = await response.json();
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Failed to update status",
+          result.message || "No se pudo actualizar el estado",
         );
       }
 
@@ -128,39 +118,32 @@ export default function AdminCarsPage() {
     } catch (updateError) {
       console.error(updateError);
 
-      setError(
-        updateError.message ||
-          "Failed to update status",
-      );
+      setError(updateError.message || "No se pudo actualizar el estado");
     } finally {
       setActionId(null);
     }
   }
 
-  async function toggleFeatured(car) {
+  async function toggleDestacado(car) {
     try {
       setActionId(car._id);
       setError("");
 
-      const response = await fetch(
-        `/api/admin/cars/${car._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            isFeatured: !car.isFeatured,
-          }),
+      const response = await fetch(`/api/admin/cars/${car._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          isFeatured: !car.isFeatured,
+        }),
+      });
 
       const result = await response.json();
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message ||
-            "Failed to update featured status",
+          result.message || "No se pudo actualizar el estado destacado",
         );
       }
 
@@ -178,8 +161,7 @@ export default function AdminCarsPage() {
       console.error(toggleError);
 
       setError(
-        toggleError.message ||
-          "Failed to update featured status",
+        toggleError.message || "No se pudo actualizar el estado destacado",
       );
     } finally {
       setActionId(null);
@@ -188,7 +170,7 @@ export default function AdminCarsPage() {
 
   async function deleteCar(carId) {
     const confirmed = window.confirm(
-      "Are you sure you want to delete this vehicle? This action cannot be undone.",
+      "¿Estás seguro de que quieres eliminar este vehículo? Esta acción no se puede deshacer.",
     );
 
     if (!confirmed) {
@@ -199,24 +181,17 @@ export default function AdminCarsPage() {
       setActionId(carId);
       setError("");
 
-      const response = await fetch(
-        `/api/admin/cars/${carId}`,
-        {
-          method: "DELETE",
-        },
-      );
+      const response = await fetch(`/api/admin/cars/${carId}`, {
+        method: "DELETE",
+      });
 
       const result = await response.json();
 
       if (!response.ok || !result.success) {
-        throw new Error(
-          result.message || "Failed to delete car",
-        );
+        throw new Error(result.message || "No se pudo eliminar el vehículo");
       }
 
-      setCars((current) =>
-        current.filter((car) => car._id !== carId),
-      );
+      setCars((current) => current.filter((car) => car._id !== carId));
 
       setPagination((current) => ({
         ...current,
@@ -225,9 +200,7 @@ export default function AdminCarsPage() {
     } catch (deleteError) {
       console.error(deleteError);
 
-      setError(
-        deleteError.message || "Failed to delete car",
-      );
+      setError(deleteError.message || "No se pudo eliminar el vehículo");
     } finally {
       setActionId(null);
     }
@@ -241,16 +214,16 @@ export default function AdminCarsPage() {
 
       <div className="mb-6 flex flex-col gap-5 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/35">
-            Inventory
+          <p className="text- font-semibold uppercase tracking-[0.2em] text-black/35">
+            Inventario
           </p>
 
           <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-            Cars
+            Vehículos
           </h1>
 
           <p className="mt-2 max-w-xl text-sm leading-6 text-black/45">
-            Manage every vehicle on the dealership website.
+            Gestiona cada vehículo del sitio web del concesionario.
           </p>
         </div>
 
@@ -258,7 +231,7 @@ export default function AdminCarsPage() {
           href="/admin/cars/new"
           className="inline-flex w-full shrink-0 items-center justify-center rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/80 active:scale-[0.98] sm:w-auto"
         >
-          + Add Car
+          + Añadir vehículo
         </Link>
       </div>
 
@@ -284,62 +257,50 @@ export default function AdminCarsPage() {
           <input
             type="text"
             value={search}
-            onChange={(event) =>
-              setSearch(event.target.value)
-            }
-            placeholder="Search make, model or stock number"
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Buscar por marca, modelo o número de inventario"
             className="h-11 w-full min-w-0 rounded-xl border border-black/15 px-4 text-sm outline-none placeholder:text-black/30 focus:border-black"
           />
 
           <select
             value={status}
-            onChange={(event) =>
-              setStatus(event.target.value)
-            }
+            onChange={(event) => setStatus(event.target.value)}
             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
           >
-            <option value="">All statuses</option>
-            <option value="Available">Available</option>
-            <option value="Reserved">Reserved</option>
-            <option value="Sold">Sold</option>
+            <option value="">Todos los estados</option>
+            <option value="Disponible">Disponible</option>
+            <option value="Reservado">Reservado</option>
+            <option value="Vendido">Vendido</option>
           </select>
 
           <select
             value={condition}
-            onChange={(event) =>
-              setCondition(event.target.value)
-            }
+            onChange={(event) => setCondition(event.target.value)}
             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
           >
-            <option value="">All conditions</option>
-            <option value="New">New</option>
-            <option value="Used">Used</option>
+            <option value="">Todas las condiciones</option>
+            <option value="Nuevo">Nuevo</option>
+            <option value="Usado">Usado</option>
           </select>
 
           <select
             value={sort}
-            onChange={(event) =>
-              setSort(event.target.value)
-            }
+            onChange={(event) => setSort(event.target.value)}
             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
           >
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="price-low">
-              Price: Low to High
-            </option>
-            <option value="price-high">
-              Price: High to Low
-            </option>
-            <option value="year-new">Newest year</option>
-            <option value="year-old">Oldest year</option>
+            <option value="newest">Más recientes primero</option>
+            <option value="oldest">Más antiguos primero</option>
+            <option value="price-low">Precio: de menor a mayor</option>
+            <option value="price-high">Precio: de mayor a menor</option>
+            <option value="year-new">Año más reciente</option>
+            <option value="year-old">Año más antiguo</option>
           </select>
 
           <button
             type="submit"
             className="h-11 w-full rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:bg-black/80 active:scale-[0.98] sm:col-span-2 lg:col-span-1"
           >
-            Search
+            Buscar
           </button>
         </form>
       </section>
@@ -349,17 +310,15 @@ export default function AdminCarsPage() {
       ====================================================== */}
 
       <section className="mt-5 overflow-hidden rounded-2xl border border-black/10 bg-white sm:mt-6">
-        {/* Inventory Header */}
+        {/* Inventario Header */}
 
         <div className="flex items-center justify-between border-b border-black/10 px-4 py-4 sm:px-6 sm:py-5">
           <div>
-            <h2 className="font-semibold">Inventory</h2>
+            <h2 className="font-semibold">Inventario</h2>
 
             <p className="mt-1 text-xs text-black/40">
               {pagination.total}{" "}
-              {pagination.total === 1
-                ? "vehicle"
-                : "vehicles"}
+              {pagination.total === 1 ? "vehículo" : "vehículos"}
             </p>
           </div>
         </div>
@@ -377,7 +336,7 @@ export default function AdminCarsPage() {
             </div>
           </>
         ) : cars.length === 0 ? (
-          <EmptyInventory />
+          <EmptyInventario />
         ) : (
           <>
             {/* =================================================
@@ -385,31 +344,31 @@ export default function AdminCarsPage() {
             ================================================== */}
 
             <div className="hidden overflow-x-auto md:block">
-              <table className="w-full min-w-[900px] border-collapse">
+              <table className="w-full min-w- border-collapse">
                 <thead>
                   <tr className="border-b border-black/10 text-left">
                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Vehicle
+                      Vehículo
                     </th>
 
                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Price
+                      Precio
                     </th>
 
                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Mileage
+                      Kilometraje
                     </th>
 
                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Status
+                      Estado
                     </th>
 
                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Featured
+                      Destacado
                     </th>
 
                     <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-                      Actions
+                      Acciones
                     </th>
                   </tr>
                 </thead>
@@ -423,64 +382,55 @@ export default function AdminCarsPage() {
                         key={car._id}
                         className="border-b border-black/10 last:border-0"
                       >
-                        {/* Vehicle */}
+                        {/* Vehículo */}
 
                         <td className="px-6 py-5">
-                          <VehicleInfo car={car} />
+                          <VehículoInfo car={car} />
                         </td>
 
-                        {/* Price */}
+                        {/* Precio */}
 
                         <td className="px-6 py-5">
                           <p className="text-sm font-semibold">
-                            {car.currency}{" "}
-                            {formatNumber(car.price)}
+                            {car.currency} {formatNumber(car.price)}
                           </p>
                         </td>
 
-                        {/* Mileage */}
+                        {/* Kilometraje */}
 
                         <td className="px-6 py-5">
                           <p className="text-sm text-black/55">
-                            {formatNumber(car.mileage)}{" "}
-                            {car.mileageUnit}
+                            {formatNumber(car.mileage)} {car.mileageUnidad}
                           </p>
                         </td>
 
-                        {/* Status */}
+                        {/* Estado */}
 
                         <td className="px-6 py-5">
-                          <StatusSelect
+                          <EstadoSelect
                             value={car.status}
                             disabled={busy}
-                            onChange={(value) =>
-                              updateStatus(
-                                car._id,
-                                value,
-                              )
-                            }
+                            onChange={(value) => updateStatus(car._id, value)}
                           />
                         </td>
 
-                        {/* Featured */}
+                        {/* Destacado */}
 
                         <td className="px-6 py-5">
-                          <FeaturedButton
+                          <DestacadoButton
                             featured={car.isFeatured}
                             disabled={busy}
-                            onClick={() =>
-                              toggleFeatured(car)
-                            }
+                            onClick={() => toggleDestacado(car)}
                           />
                         </td>
 
-                        {/* Actions */}
+                        {/* Acciones */}
 
                         <td className="px-6 py-5">
-                          <CarActions
+                          <CarAcciones
                             car={car}
                             busy={busy}
-                            onDelete={deleteCar}
+                            onEliminar={deleteCar}
                           />
                         </td>
                       </tr>
@@ -499,10 +449,7 @@ export default function AdminCarsPage() {
                 const busy = actionId === car._id;
 
                 return (
-                  <div
-                    key={car._id}
-                    className="p-4 sm:p-5"
-                  >
+                  <div key={car._id} className="p-4 sm:p-5">
                     {/* Top */}
 
                     <div className="flex gap-3">
@@ -514,8 +461,8 @@ export default function AdminCarsPage() {
                             className="h-full w-full object-cover"
                           />
                         ) : (
-                          <div className="flex h-full w-full items-center justify-center text-[10px] font-medium uppercase tracking-wider text-black/25">
-                            No image
+                          <div className="flex h-full w-full items-center justify-center text- font-medium uppercase tracking-wider text-black/25">
+                            Sin imagen
                           </div>
                         )}
                       </div>
@@ -532,22 +479,21 @@ export default function AdminCarsPage() {
                             </p>
 
                             {car.stockNumber && (
-                              <p className="mt-1 text-[11px] text-black/35">
+                              <p className="mt-1 text- text-black/35">
                                 #{car.stockNumber}
                               </p>
                             )}
                           </div>
 
                           {car.isFeatured && (
-                            <span className="shrink-0 rounded-full bg-black px-2.5 py-1 text-[10px] font-semibold text-white">
-                              Featured
+                            <span className="shrink-0 rounded-full bg-black px-2.5 py-1 text- font-semibold text-white">
+                              Destacado
                             </span>
                           )}
                         </div>
 
                         <p className="mt-3 text-sm font-semibold">
-                          {car.currency}{" "}
-                          {formatNumber(car.price)}
+                          {car.currency} {formatNumber(car.price)}
                         </p>
                       </div>
                     </div>
@@ -556,71 +502,61 @@ export default function AdminCarsPage() {
 
                     <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                       <div className="rounded-xl bg-black/[0.035] px-3 py-2.5">
-                        <p className="text-[10px] uppercase tracking-wider text-black/35">
-                          Mileage
+                        <p className="text- uppercase tracking-wider text-black/35">
+                          Kilometraje
                         </p>
 
                         <p className="mt-1 text-xs font-semibold">
-                          {formatNumber(car.mileage)}{" "}
-                          {car.mileageUnit}
+                          {formatNumber(car.mileage)} {car.mileageUnidad}
                         </p>
                       </div>
 
                       <div className="rounded-xl bg-black/[0.035] px-3 py-2.5">
-                        <p className="text-[10px] uppercase tracking-wider text-black/35">
-                          Status
+                        <p className="text- uppercase tracking-wider text-black/35">
+                          Estado
                         </p>
 
                         <div className="mt-1">
-                          <StatusSelect
+                          <EstadoSelect
                             value={car.status}
                             disabled={busy}
-                            onChange={(value) =>
-                              updateStatus(
-                                car._id,
-                                value,
-                              )
-                            }
+                            onChange={(value) => updateStatus(car._id, value)}
                           />
                         </div>
                       </div>
 
                       <div className="col-span-2 rounded-xl bg-black/[0.035] px-3 py-2.5 sm:col-span-1">
-                        <p className="text-[10px] uppercase tracking-wider text-black/35">
-                          Featured
+                        <p className="text- uppercase tracking-wider text-black/35">
+                          Destacado
                         </p>
 
                         <div className="mt-1">
-                          <FeaturedButton
+                          <DestacadoButton
                             featured={car.isFeatured}
                             disabled={busy}
-                            onClick={() =>
-                              toggleFeatured(car)
-                            }
+                            onClick={() => toggleDestacado(car)}
                           />
                         </div>
                       </div>
                     </div>
 
-                    {/* Actions */}
+                    {/* Acciones */}
 
                     <div className="mt-3 grid grid-cols-2 gap-2">
                       <Link
                         href={`/admin/cars/${car._id}/edit`}
                         className="flex h-10 items-center justify-center rounded-xl border border-black/10 text-xs font-semibold transition hover:bg-black hover:text-white active:scale-[0.98]"
                       >
-                        Edit
+                        Editar
                       </Link>
 
                       <button
                         type="button"
                         disabled={busy}
-                        onClick={() =>
-                          deleteCar(car._id)
-                        }
+                        onClick={() => deleteCar(car._id)}
                         className="h-10 rounded-xl border border-red-200 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 active:scale-[0.98]"
                       >
-                        {busy ? "Working..." : "Delete"}
+                        {busy ? "Eliminando..." : "Eliminar"}
                       </button>
                     </div>
                   </div>
@@ -639,13 +575,11 @@ export default function AdminCarsPage() {
         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-6 sm:gap-3">
           <button
             type="button"
-            disabled={!pagination.hasPreviousPage}
-            onClick={() =>
-              loadCars(pagination.page - 1)
-            }
+            disabled={!pagination.hasAnteriorPage}
+            onClick={() => loadCars(pagination.page - 1)}
             className="rounded-full border border-black/10 bg-white px-3.5 py-2.5 text-xs font-medium transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:px-5 sm:py-3 sm:text-sm"
           >
-            Previous
+            Anterior
           </button>
 
           <div className="rounded-full bg-black px-3.5 py-2.5 text-xs font-semibold text-white sm:px-4 sm:py-3 sm:text-sm">
@@ -654,13 +588,11 @@ export default function AdminCarsPage() {
 
           <button
             type="button"
-            disabled={!pagination.hasNextPage}
-            onClick={() =>
-              loadCars(pagination.page + 1)
-            }
+            disabled={!pagination.hasSiguientePage}
+            onClick={() => loadCars(pagination.page + 1)}
             className="rounded-full border border-black/10 bg-white px-3.5 py-2.5 text-xs font-medium transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:px-5 sm:py-3 sm:text-sm"
           >
-            Next
+            Siguiente
           </button>
         </div>
       )}
@@ -672,7 +604,7 @@ export default function AdminCarsPage() {
    VEHICLE INFO
 ========================================================= */
 
-function VehicleInfo({ car }) {
+function VehículoInfo({ car }) {
   return (
     <div className="flex items-center gap-4">
       <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-black/[0.05]">
@@ -683,8 +615,8 @@ function VehicleInfo({ car }) {
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-[9px] uppercase tracking-wider text-black/25">
-            No image
+          <div className="flex h-full w-full items-center justify-center text- uppercase tracking-wider text-black/25">
+            Sin imagen
           </div>
         )}
       </div>
@@ -696,9 +628,7 @@ function VehicleInfo({ car }) {
 
         <p className="mt-1 text-xs text-black/40">
           {car.year} · {car.condition}
-          {car.stockNumber
-            ? ` · #${car.stockNumber}`
-            : ""}
+          {car.stockNumber ? ` · #${car.stockNumber}` : ""}
         </p>
       </div>
     </div>
@@ -709,23 +639,17 @@ function VehicleInfo({ car }) {
    STATUS
 ========================================================= */
 
-function StatusSelect({
-  value,
-  disabled,
-  onChange,
-}) {
+function EstadoSelect({ value, disabled, onChange }) {
   return (
     <select
       value={value}
       disabled={disabled}
-      onChange={(event) =>
-        onChange(event.target.value)
-      }
+      onChange={(event) => onChange(event.target.value)}
       className="rounded-lg border border-black/10 bg-white px-2.5 py-2 text-xs font-semibold outline-none focus:border-black disabled:opacity-40"
     >
-      <option value="Available">Available</option>
-      <option value="Reserved">Reserved</option>
-      <option value="Sold">Sold</option>
+      <option value="Disponible">Disponible</option>
+      <option value="Reservado">Reservado</option>
+      <option value="Vendido">Vendido</option>
     </select>
   );
 }
@@ -734,11 +658,7 @@ function StatusSelect({
    FEATURED BUTTON
 ========================================================= */
 
-function FeaturedButton({
-  featured,
-  disabled,
-  onClick,
-}) {
+function DestacadoButton({ featured, disabled, onClick }) {
   return (
     <button
       type="button"
@@ -750,7 +670,7 @@ function FeaturedButton({
           : "bg-black/[0.05] text-black/50 hover:bg-black/[0.1]"
       }`}
     >
-      {featured ? "Featured" : "Feature"}
+      {featured ? "Destacado" : "Destacar"}
     </button>
   );
 }
@@ -759,27 +679,23 @@ function FeaturedButton({
    DESKTOP ACTIONS
 ========================================================= */
 
-function CarActions({
-  car,
-  busy,
-  onDelete,
-}) {
+function CarAcciones({ car, busy, onEliminar }) {
   return (
     <div className="flex items-center justify-end gap-2">
       <Link
         href={`/admin/cars/${car._id}/edit`}
         className="rounded-lg border border-black/10 px-3 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
       >
-        Edit
+        Editar
       </Link>
 
       <button
         type="button"
         disabled={busy}
-        onClick={() => onDelete(car._id)}
+        onClick={() => onEliminar(car._id)}
         className="rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {busy ? "Working..." : "Delete"}
+        {busy ? "Eliminando..." : "Eliminar"}
       </button>
     </div>
   );
@@ -792,24 +708,19 @@ function CarActions({
 function LoadingTable() {
   return (
     <div className="divide-y divide-black/10">
-      {Array.from({ length: 6 }).map(
-        (_, index) => (
-          <div
-            key={index}
-            className="flex items-center gap-5 px-6 py-5"
-          >
-            <div className="h-16 w-20 animate-pulse rounded-xl bg-black/[0.05]" />
+      {Array.from({ length: 6 }).map((_, index) => (
+        <div key={index} className="flex items-center gap-5 px-6 py-5">
+          <div className="h-16 w-20 animate-pulse rounded-xl bg-black/[0.05]" />
 
-            <div className="flex-1 space-y-2">
-              <div className="h-4 w-48 animate-pulse rounded bg-black/[0.05]" />
+          <div className="flex-1 space-y-2">
+            <div className="h-4 w-48 animate-pulse rounded bg-black/[0.05]" />
 
-              <div className="h-3 w-32 animate-pulse rounded bg-black/[0.05]" />
-            </div>
-
-            <div className="h-9 w-24 animate-pulse rounded-lg bg-black/[0.05]" />
+            <div className="h-3 w-32 animate-pulse rounded bg-black/[0.05]" />
           </div>
-        ),
-      )}
+
+          <div className="h-9 w-24 animate-pulse rounded-lg bg-black/[0.05]" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -821,31 +732,26 @@ function LoadingTable() {
 function LoadingCards() {
   return (
     <div className="divide-y divide-black/10">
-      {Array.from({ length: 5 }).map(
-        (_, index) => (
-          <div
-            key={index}
-            className="p-4 sm:p-5"
-          >
-            <div className="flex gap-3">
-              <div className="h-20 w-24 animate-pulse rounded-xl bg-black/[0.05] sm:h-24 sm:w-32" />
+      {Array.from({ length: 5 }).map((_, index) => (
+        <div key={index} className="p-4 sm:p-5">
+          <div className="flex gap-3">
+            <div className="h-20 w-24 animate-pulse rounded-xl bg-black/[0.05] sm:h-24 sm:w-32" />
 
-              <div className="flex-1 space-y-3">
-                <div className="h-4 w-32 animate-pulse rounded bg-black/[0.05]" />
+            <div className="flex-1 space-y-3">
+              <div className="h-4 w-32 animate-pulse rounded bg-black/[0.05]" />
 
-                <div className="h-3 w-20 animate-pulse rounded bg-black/[0.05]" />
+              <div className="h-3 w-20 animate-pulse rounded bg-black/[0.05]" />
 
-                <div className="h-4 w-24 animate-pulse rounded bg-black/[0.05]" />
-              </div>
-            </div>
-
-            <div className="mt-4 grid grid-cols-2 gap-2">
-              <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
-              <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
+              <div className="h-4 w-24 animate-pulse rounded bg-black/[0.05]" />
             </div>
           </div>
-        ),
-      )}
+
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
+            <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -854,23 +760,21 @@ function LoadingCards() {
    EMPTY
 ========================================================= */
 
-function EmptyInventory() {
+function EmptyInventario() {
   return (
     <div className="px-5 py-16 text-center sm:px-6 sm:py-20">
-      <h3 className="text-lg font-semibold">
-        No vehicles found
-      </h3>
+      <h3 className="text-lg font-semibold">No se encontraron vehículos</h3>
 
       <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-black/45">
-        Add your first vehicle to start building
-        your dealership inventory.
+        Añade tu primer vehículo para empezar a crear el inventario de tu
+        concesionario.
       </p>
 
       <Link
         href="/admin/cars/new"
         className="mt-6 inline-flex rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/80"
       >
-        + Add Car
+        + Añadir vehículo
       </Link>
     </div>
   );
@@ -881,10 +785,11 @@ function EmptyInventory() {
 ========================================================= */
 
 function formatNumber(value) {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("es-ES", {
     maximumFractionDigits: 0,
   }).format(value || 0);
 }
+
 
 // "use client";
 
@@ -893,36 +798,24 @@ function formatNumber(value) {
 
 // export default function AdminCarsPage() {
 //   const [cars, setCars] = useState([]);
-//   const [pagination, setPagination] =
-//     useState({
-//       page: 1,
-//       limit: 15,
-//       total: 0,
-//       totalPages: 0,
-//       hasNextPage: false,
-//       hasPreviousPage: false,
-//     });
 
-//   const [search, setSearch] =
-//     useState("");
+//   const [pagination, setPagination] = useState({
+//     page: 1,
+//     limit: 15,
+//     total: 0,
+//     totalPages: 0,
+//     hasSiguientePage: false,
+//     hasAnteriorPage: false,
+//   });
 
-//   const [status, setStatus] =
-//     useState("");
+//   const [search, setSearch] = useState("");
+//   const [status, setStatus] = useState("");
+//   const [condition, setCondition] = useState("");
+//   const [sort, setSort] = useState("newest");
 
-//   const [condition, setCondition] =
-//     useState("");
-
-//   const [sort, setSort] =
-//     useState("newest");
-
-//   const [loading, setLoading] =
-//     useState(true);
-
-//   const [error, setError] =
-//     useState("");
-
-//   const [actionId, setActionId] =
-//     useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const [actionId, setActionId] = useState(null);
 
 //   async function loadCars(page = 1) {
 //     try {
@@ -932,10 +825,7 @@ function formatNumber(value) {
 //       const params = new URLSearchParams();
 
 //       if (search.trim()) {
-//         params.set(
-//           "search",
-//           search.trim()
-//         );
+//         params.set("search", search.trim());
 //       }
 
 //       if (status) {
@@ -954,28 +844,24 @@ function formatNumber(value) {
 //         `/api/admin/cars?${params.toString()}`,
 //         {
 //           cache: "no-store",
-//         }
+//         },
 //       );
 
 //       const result = await response.json();
 
 //       if (!response.ok || !result.success) {
 //         throw new Error(
-//           result.message ||
-//             "Failed to load inventory"
+//           result.message || "No se pudo cargar el inventario",
 //         );
 //       }
 
 //       setCars(result.data.cars);
-//       setPagination(
-//         result.data.pagination
-//       );
+//       setPagination(result.data.pagination);
 //     } catch (loadError) {
 //       console.error(loadError);
 
 //       setError(
-//         loadError.message ||
-//           "Failed to load inventory"
+//         loadError.message || "No se pudo cargar el inventario",
 //       );
 //     } finally {
 //       setLoading(false);
@@ -983,23 +869,19 @@ function formatNumber(value) {
 //   }
 
 //   useEffect(() => {
-//     const timeoutId = window.setTimeout(() => {
+//     const timeoutId = window.setHoraout(() => {
 //       loadCars(1);
 //     }, 0);
 
-//     return () => window.clearTimeout(timeoutId);
+//     return () => window.clearHoraout(timeoutId);
 //   }, [status, condition, sort]);
 
 //   async function handleSearch(event) {
 //     event.preventDefault();
-
 //     await loadCars(1);
 //   }
 
-//   async function updateStatus(
-//     carId,
-//     nextStatus
-//   ) {
+//   async function updateStatus(carId, nextStatus) {
 //     try {
 //       setActionId(carId);
 //       setError("");
@@ -1014,15 +896,14 @@ function formatNumber(value) {
 //           body: JSON.stringify({
 //             status: nextStatus,
 //           }),
-//         }
+//         },
 //       );
 
 //       const result = await response.json();
 
 //       if (!response.ok || !result.success) {
 //         throw new Error(
-//           result.message ||
-//             "Failed to update status"
+//           result.message || "No se pudo actualizar el estado",
 //         );
 //       }
 
@@ -1033,22 +914,22 @@ function formatNumber(value) {
 //                 ...car,
 //                 status: nextStatus,
 //               }
-//             : car
-//         )
+//             : car,
+//         ),
 //       );
 //     } catch (updateError) {
 //       console.error(updateError);
 
 //       setError(
 //         updateError.message ||
-//           "Failed to update status"
+//           "No se pudo actualizar el estado",
 //       );
 //     } finally {
 //       setActionId(null);
 //     }
 //   }
 
-//   async function toggleFeatured(car) {
+//   async function toggleDestacado(car) {
 //     try {
 //       setActionId(car._id);
 //       setError("");
@@ -1061,9 +942,9 @@ function formatNumber(value) {
 //             "Content-Type": "application/json",
 //           },
 //           body: JSON.stringify({
-//             isFeatured: !car.isFeatured,
+//             isDestacado: !car.isDestacado,
 //           }),
-//         }
+//         },
 //       );
 
 //       const result = await response.json();
@@ -1071,7 +952,7 @@ function formatNumber(value) {
 //       if (!response.ok || !result.success) {
 //         throw new Error(
 //           result.message ||
-//             "Failed to update featured status"
+//             "No se pudo actualizar el estado destacado",
 //         );
 //       }
 
@@ -1080,18 +961,17 @@ function formatNumber(value) {
 //           item._id === car._id
 //             ? {
 //                 ...item,
-//                 isFeatured:
-//                   !item.isFeatured,
+//                 isDestacado: !item.isDestacado,
 //               }
-//             : item
-//         )
+//             : item,
+//         ),
 //       );
 //     } catch (toggleError) {
 //       console.error(toggleError);
 
 //       setError(
 //         toggleError.message ||
-//           "Failed to update featured status"
+//           "No se pudo actualizar el estado destacado",
 //       );
 //     } finally {
 //       setActionId(null);
@@ -1100,7 +980,7 @@ function formatNumber(value) {
 
 //   async function deleteCar(carId) {
 //     const confirmed = window.confirm(
-//       "Are you sure you want to delete this vehicle? This action cannot be undone."
+//       "Are you sure you want to delete this vehículo? This action cannot be undone.",
 //     );
 
 //     if (!confirmed) {
@@ -1115,37 +995,30 @@ function formatNumber(value) {
 //         `/api/admin/cars/${carId}`,
 //         {
 //           method: "DELETE",
-//         }
+//         },
 //       );
 
 //       const result = await response.json();
 
 //       if (!response.ok || !result.success) {
 //         throw new Error(
-//           result.message ||
-//             "Failed to delete car"
+//           result.message || "No se pudo eliminar el vehículo",
 //         );
 //       }
 
 //       setCars((current) =>
-//         current.filter(
-//           (car) => car._id !== carId
-//         )
+//         current.filter((car) => car._id !== carId),
 //       );
 
 //       setPagination((current) => ({
 //         ...current,
-//         total: Math.max(
-//           current.total - 1,
-//           0
-//         ),
+//         total: Math.max(current.total - 1, 0),
 //       }));
 //     } catch (deleteError) {
 //       console.error(deleteError);
 
 //       setError(
-//         deleteError.message ||
-//           "Failed to delete car"
+//         deleteError.message || "No se pudo eliminar el vehículo",
 //       );
 //     } finally {
 //       setActionId(null);
@@ -1153,41 +1026,52 @@ function formatNumber(value) {
 //   }
 
 //   return (
-//     <div className="mx-auto max-w-7xl">
-//       <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
-//         <div>
-//           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/35">
-//             Inventory
+//     <div className="mx-auto w-full max-w-7xl min-w-0 md:pb-0 pb-20">
+//       {/* =====================================================
+//           PAGE HEADER
+//       ====================================================== */}
+
+//       <div className="mb-6 flex flex-col gap-5 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+//         <div className="min-w-0">
+//           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-black/35">
+//             Inventario
 //           </p>
 
-//           <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-//             Cars
+//           <h1 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+//             Vehículos
 //           </h1>
 
-//           <p className="mt-2 text-sm text-black/45">
-//             Manage every vehicle on the dealership website.
+//           <p className="mt-2 max-w-xl text-sm leading-6 text-black/45">
+//             Gestionar every vehículo on the dealership website.
 //           </p>
 //         </div>
 
 //         <Link
 //           href="/admin/cars/new"
-//           className="inline-flex w-fit rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/80"
+//           className="inline-flex w-full shrink-0 items-center justify-center rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/80 active:scale-[0.98] sm:w-auto"
 //         >
-//           + Add Car
+//           + Añadir vehículo
 //         </Link>
 //       </div>
 
+//       {/* =====================================================
+//           ERROR
+//       ====================================================== */}
+
 //       {error && (
-//         <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">
+//         <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm leading-6 text-red-700 sm:p-5">
 //           {error}
 //         </div>
 //       )}
 
-//       {/* Filters */}
-//       <section className="rounded-2xl border border-black/10 bg-white p-5">
+//       {/* =====================================================
+//           FILTERS
+//       ====================================================== */}
+
+//       <section className="rounded-2xl border border-black/10 bg-white p-3 sm:p-5">
 //         <form
 //           onSubmit={handleSearch}
-//           className="grid gap-3 lg:grid-cols-[1fr_180px_180px_200px_auto]"
+//           className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[minmax(220px,1fr)_160px_160px_180px_auto]"
 //         >
 //           <input
 //             type="text"
@@ -1195,8 +1079,8 @@ function formatNumber(value) {
 //             onChange={(event) =>
 //               setSearch(event.target.value)
 //             }
-//             placeholder="Search make, model or stock number"
-//             className="h-11 rounded-xl border border-black/15 px-4 text-sm outline-none placeholder:text-black/30 focus:border-black"
+//             placeholder="Buscar por marca, modelo o número de inventario"
+//             className="h-11 w-full min-w-0 rounded-xl border border-black/15 px-4 text-sm outline-none placeholder:text-black/30 focus:border-black"
 //           />
 
 //           <select
@@ -1204,45 +1088,24 @@ function formatNumber(value) {
 //             onChange={(event) =>
 //               setStatus(event.target.value)
 //             }
-//             className="h-11 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
+//             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
 //           >
-//             <option value="">
-//               All statuses
-//             </option>
-
-//             <option value="Available">
-//               Available
-//             </option>
-
-//             <option value="Reserved">
-//               Reserved
-//             </option>
-
-//             <option value="Sold">
-//               Sold
-//             </option>
+//             <option value="">Todos los estados</option>
+//             <option value="Disponible">Disponible</option>
+//             <option value="Reserved">Reservado</option>
+//             <option value="Vendidos">Vendidos</option>
 //           </select>
 
 //           <select
 //             value={condition}
 //             onChange={(event) =>
-//               setCondition(
-//                 event.target.value
-//               )
+//               setStatus(event.target.value)
 //             }
-//             className="h-11 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
+//             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
 //           >
-//             <option value="">
-//               All conditions
-//             </option>
-
-//             <option value="New">
-//               New
-//             </option>
-
-//             <option value="Used">
-//               Used
-//             </option>
+//             <option value="">Todas las condiciones</option>
+//             <option value="New">New</option>
+//             <option value="Used">Used</option>
 //           </select>
 
 //           <select
@@ -1250,266 +1113,395 @@ function formatNumber(value) {
 //             onChange={(event) =>
 //               setSort(event.target.value)
 //             }
-//             className="h-11 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
+//             className="h-11 w-full min-w-0 rounded-xl border border-black/15 bg-white px-3 text-sm outline-none focus:border-black"
 //           >
-//             <option value="newest">
-//               Newest first
-//             </option>
-
-//             <option value="oldest">
-//               Oldest first
-//             </option>
-
+//             <option value="newest">Más recientes primero</option>
+//             <option value="oldest">Más antiguos primero</option>
 //             <option value="price-low">
-//               Price: Low to High
+//               Precio: Low to High
 //             </option>
-
 //             <option value="price-high">
-//               Price: High to Low
+//               Precio: High to Low
 //             </option>
-
-//             <option value="year-new">
-//               Newest year
-//             </option>
-
-//             <option value="year-old">
-//               Oldest year
-//             </option>
+//             <option value="year-new">Año más reciente</option>
+//             <option value="year-old">Año más antiguo</option>
 //           </select>
 
 //           <button
 //             type="submit"
-//             className="h-11 rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:bg-black/80"
+//             className="h-11 w-full rounded-xl bg-black px-5 text-sm font-semibold text-white transition hover:bg-black/80 active:scale-[0.98] sm:col-span-2 lg:col-span-1"
 //           >
-//             Search
+//             Buscar
 //           </button>
 //         </form>
 //       </section>
 
-//       {/* Inventory */}
-//       <section className="mt-6 overflow-hidden rounded-2xl border border-black/10 bg-white">
-//         <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
+//       {/* =====================================================
+//           INVENTORY
+//       ====================================================== */}
+
+//       <section className="mt-5 overflow-hidden rounded-2xl border border-black/10 bg-white sm:mt-6">
+//         {/* Inventario Header */}
+
+//         <div className="flex items-center justify-between border-b border-black/10 px-4 py-4 sm:px-6 sm:py-5">
 //           <div>
-//             <h2 className="font-semibold">
-//               Inventory
-//             </h2>
+//             <h2 className="font-semibold">Inventario</h2>
 
 //             <p className="mt-1 text-xs text-black/40">
 //               {pagination.total}{" "}
 //               {pagination.total === 1
-//                 ? "vehicle"
-//                 : "vehicles"}
+//                 ? "vehículo"
+//                 : "vehículos"}
 //             </p>
 //           </div>
 //         </div>
 
+//         {/* Loading */}
+
 //         {loading ? (
-//           <LoadingTable />
+//           <>
+//             <div className="hidden md:block">
+//               <LoadingTable />
+//             </div>
+
+//             <div className="md:hidden">
+//               <LoadingCards />
+//             </div>
+//           </>
 //         ) : cars.length === 0 ? (
-//           <EmptyInventory />
+//           <EmptyInventario />
 //         ) : (
-//           <div className="overflow-x-auto">
-//             <table className="w-full min-w-[900px] border-collapse">
-//               <thead>
-//                 <tr className="border-b border-black/10 text-left">
-//                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Vehicle
-//                   </th>
+//           <>
+//             {/* =================================================
+//                 DESKTOP TABLE
+//             ================================================== */}
 
-//                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Price
-//                   </th>
+//             <div className="hidden overflow-x-auto md:block">
+//               <table className="w-full min-w-[900px] border-collapse">
+//                 <thead>
+//                   <tr className="border-b border-black/10 text-left">
+//                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Vehículo
+//                     </th>
 
-//                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Mileage
-//                   </th>
+//                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Precio
+//                     </th>
 
-//                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Status
-//                   </th>
+//                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Kilometraje
+//                     </th>
 
-//                   <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Featured
-//                   </th>
+//                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Estado
+//                     </th>
 
-//                   <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
-//                     Actions
-//                   </th>
-//                 </tr>
-//               </thead>
+//                     <th className="px-6 py-4 text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Destacado
+//                     </th>
 
-//               <tbody>
-//                 {cars.map((car) => {
-//                   const busy =
-//                     actionId === car._id;
+//                     <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-[0.12em] text-black/35">
+//                       Acciones
+//                     </th>
+//                   </tr>
+//                 </thead>
 
-//                   return (
-//                     <tr
-//                       key={car._id}
-//                       className="border-b border-black/10 last:border-0"
-//                     >
-//                       <td className="px-6 py-5">
-//                         <div className="flex items-center gap-4">
-//                           <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-black/[0.05]">
-//                             {car.images?.[0]
-//                               ?.url && (
-//                               <img
-//                                 src={
-//                                   car.images[0]
-//                                     .url
-//                                 }
-//                                 alt={`${car.make} ${car.model}`}
-//                                 className="h-full w-full object-cover"
-//                               />
-//                             )}
+//                 <tbody>
+//                   {cars.map((car) => {
+//                     const busy = actionId === car._id;
+
+//                     return (
+//                       <tr
+//                         key={car._id}
+//                         className="border-b border-black/10 last:border-0"
+//                       >
+//                         {/* Vehículo */}
+
+//                         <td className="px-6 py-5">
+//                           <VehículoInfo car={car} />
+//                         </td>
+
+//                         {/* Precio */}
+
+//                         <td className="px-6 py-5">
+//                           <p className="text-sm font-semibold">
+//                             {car.currency}{" "}
+//                             {formatNumber(car.price)}
+//                           </p>
+//                         </td>
+
+//                         {/* Kilometraje */}
+
+//                         <td className="px-6 py-5">
+//                           <p className="text-sm text-black/55">
+//                             {formatNumber(car.mileage)}{" "}
+//                             {car.mileageUnidad}
+//                           </p>
+//                         </td>
+
+//                         {/* Estado */}
+
+//                         <td className="px-6 py-5">
+//                           <EstadoSelect
+//                             value={car.status}
+//                             disabled={busy}
+//                             onChange={(value) =>
+//                               updateStatus(
+//                                 car._id,
+//                                 value,
+//                               )
+//                             }
+//                           />
+//                         </td>
+
+//                         {/* Destacado */}
+
+//                         <td className="px-6 py-5">
+//                           <DestacadoButton
+//                             featured={car.isDestacado}
+//                             disabled={busy}
+//                             onClick={() =>
+//                               toggleDestacado(car)
+//                             }
+//                           />
+//                         </td>
+
+//                         {/* Acciones */}
+
+//                         <td className="px-6 py-5">
+//                           <CarAcciones
+//                             car={car}
+//                             busy={busy}
+//                             onEliminar={deleteCar}
+//                           />
+//                         </td>
+//                       </tr>
+//                     );
+//                   })}
+//                 </tbody>
+//               </table>
+//             </div>
+
+//             {/* =================================================
+//                 MOBILE / TABLET CARDS
+//             ================================================== */}
+
+//             <div className="divide-y divide-black/10 md:hidden">
+//               {cars.map((car) => {
+//                 const busy = actionId === car._id;
+
+//                 return (
+//                   <div
+//                     key={car._id}
+//                     className="p-4 sm:p-5"
+//                   >
+//                     {/* Top */}
+
+//                     <div className="flex gap-3">
+//                       <div className="h-20 w-24 shrink-0 overflow-hidden rounded-xl bg-black/[0.05] sm:h-24 sm:w-32">
+//                         {car.images?.[0]?.url ? (
+//                           <img
+//                             src={car.images[0].url}
+//                             alt={`${car.make} ${car.model}`}
+//                             className="h-full w-full object-cover"
+//                           />
+//                         ) : (
+//                           <div className="flex h-full w-full items-center justify-center text-[10px] font-medium uppercase tracking-wider text-black/25">
+//                             Sin imagen
 //                           </div>
+//                         )}
+//                       </div>
 
-//                           <div>
-//                             <p className="font-semibold">
-//                               {car.make}{" "}
-//                               {car.model}
+//                       <div className="min-w-0 flex-1">
+//                         <div className="flex items-start justify-between gap-2">
+//                           <div className="min-w-0">
+//                             <p className="truncate text-sm font-semibold sm:text-base">
+//                               {car.make} {car.model}
 //                             </p>
 
 //                             <p className="mt-1 text-xs text-black/40">
-//                               {car.year} ·{" "}
-//                               {car.condition}
-//                               {car.stockNumber
-//                                 ? ` · #${car.stockNumber}`
-//                                 : ""}
+//                               {car.year} · {car.condition}
 //                             </p>
+
+//                             {car.stockNumber && (
+//                               <p className="mt-1 text-[11px] text-black/35">
+//                                 #{car.stockNumber}
+//                               </p>
+//                             )}
 //                           </div>
-//                         </div>
-//                       </td>
 
-//                       <td className="px-6 py-5">
-//                         <p className="text-sm font-semibold">
-//                           {car.currency}{" "}
-//                           {formatNumber(
-//                             car.price
+//                           {car.isDestacado && (
+//                             <span className="shrink-0 rounded-full bg-black px-2.5 py-1 text-[10px] font-semibold text-white">
+//                               Destacado
+//                             </span>
 //                           )}
+//                         </div>
+
+//                         <p className="mt-3 text-sm font-semibold">
+//                           {car.currency}{" "}
+//                           {formatNumber(car.price)}
 //                         </p>
-//                       </td>
+//                       </div>
+//                     </div>
 
-//                       <td className="px-6 py-5">
-//                         <p className="text-sm text-black/55">
-//                           {formatNumber(
-//                             car.mileage
-//                           )}{" "}
-//                           {car.mileageUnit}
+//                     {/* Details */}
+
+//                     <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+//                       <div className="rounded-xl bg-black/[0.035] px-3 py-2.5">
+//                         <p className="text-[10px] uppercase tracking-wider text-black/35">
+//                           Kilometraje
 //                         </p>
-//                       </td>
 
-//                       <td className="px-6 py-5">
-//                         <StatusSelect
-//                           value={car.status}
-//                           disabled={busy}
-//                           onChange={(value) =>
-//                             updateStatus(
-//                               car._id,
-//                               value
-//                             )
-//                           }
-//                         />
-//                       </td>
+//                         <p className="mt-1 text-xs font-semibold">
+//                           {formatNumber(car.mileage)}{" "}
+//                           {car.mileageUnidad}
+//                         </p>
+//                       </div>
 
-//                       <td className="px-6 py-5">
-//                         <button
-//                           type="button"
-//                           disabled={busy}
-//                           onClick={() =>
-//                             toggleFeatured(
-//                               car
-//                             )
-//                           }
-//                           className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
-//                             car.isFeatured
-//                               ? "bg-black text-white"
-//                               : "bg-black/[0.05] text-black/50 hover:bg-black/[0.1]"
-//                           }`}
-//                         >
-//                           {car.isFeatured
-//                             ? "Featured"
-//                             : "Feature"}
-//                         </button>
-//                       </td>
+//                       <div className="rounded-xl bg-black/[0.035] px-3 py-2.5">
+//                         <p className="text-[10px] uppercase tracking-wider text-black/35">
+//                           Estado
+//                         </p>
 
-//                       <td className="px-6 py-5">
-//                         <div className="flex items-center justify-end gap-2">
-//                           <Link
-//                             href={`/admin/cars/${car._id}/edit`}
-//                             className="rounded-lg border border-black/10 px-3 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
-//                           >
-//                             Edit
-//                           </Link>
-
-//                           <button
-//                             type="button"
+//                         <div className="mt-1">
+//                           <EstadoSelect
+//                             value={car.status}
 //                             disabled={busy}
-//                             onClick={() =>
-//                               deleteCar(
-//                                 car._id
+//                             onChange={(value) =>
+//                               updateStatus(
+//                                 car._id,
+//                                 value,
 //                               )
 //                             }
-//                             className="rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white disabled:opacity-40"
-//                           >
-//                             Delete
-//                           </button>
+//                           />
 //                         </div>
-//                       </td>
-//                     </tr>
-//                   );
-//                 })}
-//               </tbody>
-//             </table>
-//           </div>
+//                       </div>
+
+//                       <div className="col-span-2 rounded-xl bg-black/[0.035] px-3 py-2.5 sm:col-span-1">
+//                         <p className="text-[10px] uppercase tracking-wider text-black/35">
+//                           Destacado
+//                         </p>
+
+//                         <div className="mt-1">
+//                           <DestacadoButton
+//                             featured={car.isDestacado}
+//                             disabled={busy}
+//                             onClick={() =>
+//                               toggleDestacado(car)
+//                             }
+//                           />
+//                         </div>
+//                       </div>
+//                     </div>
+
+//                     {/* Acciones */}
+
+//                     <div className="mt-3 grid grid-cols-2 gap-2">
+//                       <Link
+//                         href={`/admin/cars/${car._id}/edit`}
+//                         className="flex h-10 items-center justify-center rounded-xl border border-black/10 text-xs font-semibold transition hover:bg-black hover:text-white active:scale-[0.98]"
+//                       >
+//                         Editar
+//                       </Link>
+
+//                       <button
+//                         type="button"
+//                         disabled={busy}
+//                         onClick={() =>
+//                           deleteCar(car._id)
+//                         }
+//                         className="h-10 rounded-xl border border-red-200 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-40 active:scale-[0.98]"
+//                       >
+//                         {busy ? "Working..." : "Eliminar"}
+//                       </button>
+//                     </div>
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </>
 //         )}
 //       </section>
 
-//       {/* Pagination */}
-//       {!loading &&
-//         pagination.totalPages > 1 && (
-//           <div className="mt-6 flex items-center justify-center gap-3">
-//             <button
-//               type="button"
-//               disabled={
-//                 !pagination.hasPreviousPage
-//               }
-//               onClick={() =>
-//                 loadCars(
-//                   pagination.page - 1
-//                 )
-//               }
-//               className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-35"
-//             >
-//               Previous
-//             </button>
+//       {/* =====================================================
+//           PAGINATION
+//       ====================================================== */}
 
-//             <div className="rounded-full bg-black px-4 py-3 text-sm font-semibold text-white">
-//               {pagination.page} /{" "}
-//               {pagination.totalPages}
-//             </div>
+//       {!loading && pagination.totalPages > 1 && (
+//         <div className="mt-5 flex items-center justify-center gap-2 sm:mt-6 sm:gap-3">
+//           <button
+//             type="button"
+//             disabled={!pagination.hasAnteriorPage}
+//             onClick={() =>
+//               loadCars(pagination.page - 1)
+//             }
+//             className="rounded-full border border-black/10 bg-white px-3.5 py-2.5 text-xs font-medium transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:px-5 sm:py-3 sm:text-sm"
+//           >
+//             Anterior
+//           </button>
 
-//             <button
-//               type="button"
-//               disabled={
-//                 !pagination.hasNextPage
-//               }
-//               onClick={() =>
-//                 loadCars(
-//                   pagination.page + 1
-//                 )
-//               }
-//               className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-35"
-//             >
-//               Next
-//             </button>
+//           <div className="rounded-full bg-black px-3.5 py-2.5 text-xs font-semibold text-white sm:px-4 sm:py-3 sm:text-sm">
+//             {pagination.page} / {pagination.totalPages}
 //           </div>
-//         )}
+
+//           <button
+//             type="button"
+//             disabled={!pagination.hasSiguientePage}
+//             onClick={() =>
+//               loadCars(pagination.page + 1)
+//             }
+//             className="rounded-full border border-black/10 bg-white px-3.5 py-2.5 text-xs font-medium transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-35 sm:px-5 sm:py-3 sm:text-sm"
+//           >
+//             Siguiente
+//           </button>
+//         </div>
+//       )}
 //     </div>
 //   );
 // }
 
-// function StatusSelect({
+// /* =========================================================
+//    VEHICLE INFO
+// ========================================================= */
+
+// function VehículoInfo({ car }) {
+//   return (
+//     <div className="flex items-center gap-4">
+//       <div className="h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-black/[0.05]">
+//         {car.images?.[0]?.url ? (
+//           <img
+//             src={car.images[0].url}
+//             alt={`${car.make} ${car.model}`}
+//             className="h-full w-full object-cover"
+//           />
+//         ) : (
+//           <div className="flex h-full w-full items-center justify-center text-[9px] uppercase tracking-wider text-black/25">
+//             Sin imagen
+//           </div>
+//         )}
+//       </div>
+
+//       <div className="min-w-0">
+//         <p className="font-semibold">
+//           {car.make} {car.model}
+//         </p>
+
+//         <p className="mt-1 text-xs text-black/40">
+//           {car.year} · {car.condition}
+//           {car.stockNumber
+//             ? ` · #${car.stockNumber}`
+//             : ""}
+//         </p>
+//       </div>
+//     </div>
+//   );
+// }
+
+// /* =========================================================
+//    STATUS
+// ========================================================= */
+
+// function EstadoSelect({
 //   value,
 //   disabled,
 //   onChange,
@@ -1521,22 +1513,73 @@ function formatNumber(value) {
 //       onChange={(event) =>
 //         onChange(event.target.value)
 //       }
-//       className="rounded-lg border border-black/10 bg-white px-3 py-2 text-xs font-semibold outline-none focus:border-black disabled:opacity-40"
+//       className="rounded-lg border border-black/10 bg-white px-2.5 py-2 text-xs font-semibold outline-none focus:border-black disabled:opacity-40"
 //     >
-//       <option value="Available">
-//         Available
-//       </option>
-
-//       <option value="Reserved">
-//         Reserved
-//       </option>
-
-//       <option value="Sold">
-//         Sold
-//       </option>
+//       <option value="Disponible">Disponible</option>
+//       <option value="Reserved">Reservado</option>
+//       <option value="Vendidos">Vendidos</option>
 //     </select>
 //   );
 // }
+
+// /* =========================================================
+//    FEATURED BUTTON
+// ========================================================= */
+
+// function DestacadoButton({
+//   featured,
+//   disabled,
+//   onClick,
+// }) {
+//   return (
+//     <button
+//       type="button"
+//       disabled={disabled}
+//       onClick={onClick}
+//       className={`rounded-full px-3 py-1.5 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${
+//         featured
+//           ? "bg-black text-white"
+//           : "bg-black/[0.05] text-black/50 hover:bg-black/[0.1]"
+//       }`}
+//     >
+//       {featured ? "Destacado" : "Feature"}
+//     </button>
+//   );
+// }
+
+// /* =========================================================
+//    DESKTOP ACTIONS
+// ========================================================= */
+
+// function CarAcciones({
+//   car,
+//   busy,
+//   onEliminar,
+// }) {
+//   return (
+//     <div className="flex items-center justify-end gap-2">
+//       <Link
+//         href={`/admin/cars/${car._id}/edit`}
+//         className="rounded-lg border border-black/10 px-3 py-2 text-xs font-semibold transition hover:bg-black hover:text-white"
+//       >
+//         Editar
+//       </Link>
+
+//       <button
+//         type="button"
+//         disabled={busy}
+//         onClick={() => onEliminar(car._id)}
+//         className="rounded-lg border border-red-200 px-3 py-2 text-xs font-semibold text-red-600 transition hover:bg-red-600 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+//       >
+//         {busy ? "Working..." : "Eliminar"}
+//       </button>
+//     </div>
+//   );
+// }
+
+// /* =========================================================
+//    DESKTOP LOADING
+// ========================================================= */
 
 // function LoadingTable() {
 //   return (
@@ -1557,39 +1600,80 @@ function formatNumber(value) {
 
 //             <div className="h-9 w-24 animate-pulse rounded-lg bg-black/[0.05]" />
 //           </div>
-//         )
+//         ),
 //       )}
 //     </div>
 //   );
 // }
 
-// function EmptyInventory() {
+// /* =========================================================
+//    MOBILE LOADING
+// ========================================================= */
+
+// function LoadingCards() {
 //   return (
-//     <div className="px-6 py-20 text-center">
+//     <div className="divide-y divide-black/10">
+//       {Array.from({ length: 5 }).map(
+//         (_, index) => (
+//           <div
+//             key={index}
+//             className="p-4 sm:p-5"
+//           >
+//             <div className="flex gap-3">
+//               <div className="h-20 w-24 animate-pulse rounded-xl bg-black/[0.05] sm:h-24 sm:w-32" />
+
+//               <div className="flex-1 space-y-3">
+//                 <div className="h-4 w-32 animate-pulse rounded bg-black/[0.05]" />
+
+//                 <div className="h-3 w-20 animate-pulse rounded bg-black/[0.05]" />
+
+//                 <div className="h-4 w-24 animate-pulse rounded bg-black/[0.05]" />
+//               </div>
+//             </div>
+
+//             <div className="mt-4 grid grid-cols-2 gap-2">
+//               <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
+//               <div className="h-14 animate-pulse rounded-xl bg-black/[0.05]" />
+//             </div>
+//           </div>
+//         ),
+//       )}
+//     </div>
+//   );
+// }
+
+// /* =========================================================
+//    EMPTY
+// ========================================================= */
+
+// function EmptyInventario() {
+//   return (
+//     <div className="px-5 py-16 text-center sm:px-6 sm:py-20">
 //       <h3 className="text-lg font-semibold">
-//         No vehicles found
+//         No vehículos found
 //       </h3>
 
 //       <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-black/45">
-//         Add your first vehicle to start building
+//         Add your first vehículo to start building
 //         your dealership inventory.
 //       </p>
 
 //       <Link
 //         href="/admin/cars/new"
-//         className="mt-6 inline-flex rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white"
+//         className="mt-6 inline-flex rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-black/80"
 //       >
-//         + Add Car
+//         + Añadir vehículo
 //       </Link>
 //     </div>
 //   );
 // }
 
+// /* =========================================================
+//    NUMBER FORMAT
+// ========================================================= */
+
 // function formatNumber(value) {
-//   return new Intl.NumberFormat(
-//     "en-US",
-//     {
-//       maximumFractionDigits: 0,
-//     }
-//   ).format(value || 0);
+//   return new Intl.NumberFormat("en-US", {
+//     maximumFractionDigits: 0,
+//   }).format(value || 0);
 // }

@@ -156,12 +156,20 @@ export async function GET(request) {
        → do not filter by status
     ------------------------------------------------------ */
 
+    const statusMap = {
+      disponible: "Available",
+      reservado: "Reserved",
+      vendido: "Sold",
+      available: "Available",
+      reserved: "Reserved",
+      sold: "Sold",
+    };
     const normalizedStatus = statusParam.toLowerCase();
 
-    if (!statusParam || normalizedStatus === "available") {
+    if (!statusParam || normalizedStatus === "available" || normalizedStatus === "disponible") {
       filter.status = "Available";
     } else if (normalizedStatus !== "all") {
-      filter.status = statusParam;
+      filter.status = statusMap[normalizedStatus] || statusParam;
     }
 
     /* ======================================================
@@ -169,7 +177,13 @@ export async function GET(request) {
     ====================================================== */
 
     if (condition) {
-      filter.condition = condition;
+      const conditionMap = {
+        nuevo: "New",
+        usado: "Used",
+        new: "New",
+        used: "Used",
+      };
+      filter.condition = conditionMap[condition.toLowerCase()] || condition;
     }
 
     if (make) {

@@ -14,22 +14,22 @@ import {
 import { signOut } from "next-auth/react";
 const navigation = [
   {
-    label: "Dashboard",
+    label: "Panel",
     href: "/admin",
     icon: LayoutDashboard,
   },
   {
-    label: "Cars",
+    label: "Vehículos",
     href: "/admin/cars",
     icon: CarFront,
   },
   {
-    label: "Inquiries",
+    label: "Consultas",
     href: "/admin/inquiries",
     icon: MessageSquare,
   },
   {
-    label: "Test Drives",
+    label: "Pruebas",
     href: "/admin/test-drives",
     icon: CalendarCheck,
   },
@@ -144,7 +144,7 @@ const handleSignOut = () => {
               className="shrink-0"
             />
 
-            <span>View Website</span>
+            <span>Ver sitio web</span>
           </Link>
             
 <button
@@ -152,7 +152,7 @@ const handleSignOut = () => {
   className="flex h-11 w-full items-center gap-3 rounded-xl bg-red-50/70 px-3 text-sm font-medium text-red-700 transition-colors hover:bg-red-100 hover:text-red-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-300"
 >
   <LogOut size={18} strokeWidth={2} />
-  <span>Sign out</span>
+  <span>Cerrar sesión</span>
 </button>
         </div>
       </aside>

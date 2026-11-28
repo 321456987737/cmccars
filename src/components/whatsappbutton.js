@@ -6,7 +6,7 @@ import { BUSINESS_WHATSAPP_PHONE } from "@/lib/business";
 
 export default function WhatsAppButton({
   phone = BUSINESS_WHATSAPP_PHONE,
-  message = "Hello! I'm interested in your vehicles.",
+  message = "Hello! I'm interested in your vehículos.",
 }) {
   const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
@@ -15,7 +15,7 @@ export default function WhatsAppButton({
       href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Contact us on WhatsApp"
+      aria-label="Contáctanos por WhatsApp"
       className="fixed md:bottom-6 bottom-24 right-3 md:right-6 z-[9999] group flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_5px_25px_rgba(37,211,102,0.4)] transition-all duration-300 hover:scale-110 hover:bg-[#20bd5a]"
     >
       {/* Pulse effect */}
@@ -47,7 +47,7 @@ export default function WhatsAppButton({
 // import { FaWhatsapp } from "react-icons/fa";
 
 // export default function WhatsAppButton({
-//   message = "Hello! I'm interested in your vehicles.",
+//   message = "Hello! I'm interested in your vehículos.",
 // }) {
 //   const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 

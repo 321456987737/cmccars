@@ -63,7 +63,7 @@ export default function ContactPage() {
                 ...current,
                 message:
                   current.message ||
-                  `Hello, I'm interested in the ${selectedCar.year} ${selectedCar.make} ${selectedCar.model}. Please send me more information about this vehicle.`,
+                  `Hola, estoy interesado en el ${selectedCar.year} ${selectedCar.make} ${selectedCar.model}. Por favor, envíame más información sobre este vehículo.`,
               }));
             }
           }
@@ -108,12 +108,12 @@ export default function ContactPage() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Failed to send inquiry"
+          result.message || "No se pudo enviar la consulta"
         );
       }
 
       setSuccess(
-        `Thank you for contacting ${BUSINESS_NAME}. Your inquiry has been submitted.`
+        `Gracias por contactar con ${BUSINESS_NAME}. Tu consulta ha sido enviada.`
       );
 
       setForm({
@@ -125,7 +125,7 @@ export default function ContactPage() {
     } catch (submitError) {
       setError(
         submitError.message ||
-          "Something went wrong. Please try again."
+          "Algo salió mal. Inténtalo de nuevo."
       );
     } finally {
       setSubmitting(false);
@@ -142,7 +142,7 @@ export default function ContactPage() {
       <section className="relative h-[40dvh] min-h-[320px] overflow-hidden bg-[#e8e8e5] md:min-h-[440px]">
         <Image
           src={"/images/cars/car1.jpg"}
-          alt={`Contact ${BUSINESS_NAME}`}
+          alt={`Contacto con ${BUSINESS_NAME}`}
           fill
           priority
           sizes="100vw"
@@ -154,17 +154,17 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
         <div className="relative z-10 mx-auto flex h-full max-w-[1800px] items-end px-6 pb-10 md:px-10 md:pb-14 lg:px-14">
-          <div className="max-w-5xl">
-            <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/65 md:text-xs">
-              Get in touch
-            </p>
+       <div className="max-w-5xl">
+  <p className="font-montserrat text- font-medium uppercase tracking-[0.3em] text-white/65 md:text-xs">
+    Ponerse en contacto
+  </p>
 
-            <h1 className="mt-3 font-bebas text-6xl leading-[0.9] tracking-wide text-white md:text-8xl lg:text-9xl">
-              Let us talk
-              <br />
-              about your next car.
-            </h1>
-          </div>
+  <h1 className="mt-3 font-bebas text-6xl leading-[0.9] tracking-wide text-white md:text-8xl lg:text-9xl">
+    Hablemos de
+    <br />
+    tu próximo coche.
+  </h1>
+</div>
         </div>
       </section>
 
@@ -177,21 +177,21 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
             <div>
               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35 md:text-xs">
-                Contact us
+                Contáctanos
               </p>
 
               <h2 className="mt-5 max-w-4xl font-bebas text-5xl leading-[0.95] tracking-wide md:text-7xl lg:text-8xl">
-                Questions?
+                ¿Preguntas?
                 <br />
-                We are here.
+                Estamos aquí.
               </h2>
             </div>
 
             <div className="flex items-end">
               <p className="max-w-xl font-montserrat text-sm leading-7 text-black/55 md:text-base md:leading-8">
-                Have a question about a vehicle, want to arrange a visit,
-                schedule a test drive or simply need more information? Send us
-                a message and our team will get back to you.
+                ¿Tienes una pregunta sobre un vehículo, quieres organizar una visita,
+                reservar una prueba de conducción o simplemente necesitas más información?
+                Envíanos un mensaje y nuestro equipo se pondrá en contacto contigo.
               </p>
             </div>
           </div>
@@ -213,11 +213,11 @@ export default function ContactPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35">
-                    Contact details
+                    Datos de contacto
                   </p>
 
                   <h3 className="mt-3 font-bebas text-4xl tracking-wide md:text-5xl">
-                    Reach us
+                    Contáctanos
                   </h3>
                 </div>
 
@@ -243,7 +243,7 @@ export default function ContactPage() {
 
                 <ContactInfo
                   icon={MapPin}
-                  label="Location"
+                  label="Ubicación"
                   value={BUSINESS_LOCATION}
                   href={BUSINESS_MAPS_URL}
                 />
@@ -266,11 +266,11 @@ export default function ContactPage() {
               <div className="flex items-start justify-between gap-6">
                 <div>
                   <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35">
-                    Send an inquiry
+                    Enviar una consulta
                   </p>
 
                   <h3 className="mt-3 font-bebas text-4xl tracking-wide md:text-5xl">
-                    Tell us what you need.
+                    Cuéntanos qué necesitas.
                   </h3>
                 </div>
 
@@ -305,7 +305,7 @@ export default function ContactPage() {
 
                     <div className="flex flex-1 flex-col justify-center p-5">
                       <p className="font-montserrat text-[9px] font-medium uppercase tracking-[0.2em] text-black/35">
-                        Vehicle inquiry
+                        Vehículo consulta
                       </p>
 
                       <h4 className="mt-2 font-bebas text-3xl tracking-wide">
@@ -349,7 +349,7 @@ export default function ContactPage() {
                     htmlFor="customerName"
                     className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
                   >
-                    Full name
+                    Nombre completo
                   </label>
 
                   <input
@@ -359,7 +359,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     maxLength={100}
-                    placeholder="John Smith"
+                    placeholder="Juan Pérez"
                     className="h-14 w-full border-b border-black/15 bg-transparent px-1 font-montserrat text-sm outline-none placeholder:text-black/25 transition-colors focus:border-black"
                   />
                 </div>
@@ -392,9 +392,9 @@ export default function ContactPage() {
                       htmlFor="email"
                       className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
                     >
-                      Email
+                      Correo electrónico
                       <span className="ml-1 font-normal text-black/30">
-                        (optional)
+                        (opcional)
                       </span>
                     </label>
 
@@ -417,7 +417,7 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
                   >
-                    Message
+                    Mensaje
                   </label>
 
                   <textarea
@@ -428,7 +428,7 @@ export default function ContactPage() {
                     required
                     maxLength={2000}
                     rows={6}
-                    placeholder="How can we help?"
+                    placeholder="¿Cómo podemos ayudarte?"
                     className="w-full resize-none border-b border-black/15 bg-transparent px-1 py-3 font-montserrat text-sm leading-7 outline-none placeholder:text-black/25 transition-colors focus:border-black"
                   />
                 </div>
@@ -440,7 +440,7 @@ export default function ContactPage() {
                   className="group inline-flex w-full items-center justify-between bg-black px-6 py-5 font-montserrat text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <span>
-                    {submitting ? "Sending..." : "Send message"}
+                    {submitting ? "Enviando..." : "Enviar mensaje"}
                   </span>
 
                   <Send
@@ -465,7 +465,7 @@ export default function ContactPage() {
         <div className="mx-auto grid max-w-[1800px] overflow-hidden border border-black/10 bg-white lg:grid-cols-[0.7fr_1.3fr]">
           <div className="flex flex-col justify-center bg-[#181818] p-7 text-white md:p-10 lg:p-14">
             <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/35">
-              Find us in Lleida
+              Encuéntranos en Lleida
             </p>
 
             <h2 className="mt-5 max-w-lg font-bebas text-5xl leading-[0.92] tracking-wide md:text-7xl">
@@ -473,7 +473,7 @@ export default function ContactPage() {
             </h2>
 
             <p className="mt-6 max-w-sm font-montserrat text-sm leading-7 text-white/60">
-              We are located in {BUSINESS_LOCATION}. Open the map for directions to our dealership.
+              Estamos ubicados en {BUSINESS_LOCATION}. Abre el mapa para obtener indicaciones a nuestro concesionario.
             </p>
             <a
               href={BUSINESS_MAPS_URL}
@@ -481,7 +481,7 @@ export default function ContactPage() {
               rel="noopener noreferrer"
               className="mt-7 inline-flex w-fit items-center gap-3 border border-white/35 px-5 py-3 font-montserrat text-[9px] font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-black"
             >
-              Open in Google Maps
+              Abrir en Google Maps
               <ArrowUpRight size={14} strokeWidth={1.3} />
             </a>
           </div>
@@ -521,25 +521,25 @@ export default function ContactPage() {
 
             <div className="relative z-10 max-w-3xl">
               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/35 md:text-xs">
-                Your next vehicle
+                Tu próximo vehículo
               </p>
 
               <h2 className="mt-5 font-bebas text-6xl leading-[0.9] tracking-wide md:text-8xl">
-                Still looking?
+                ¿Sigues buscando?
                 <br />
-                Explore our inventory.
+                Explora nuestro inventario.
               </h2>
 
               <p className="mt-6 max-w-xl font-montserrat text-sm leading-7 text-white/45 md:text-base">
-                Take a look at our current vehicles and find something that
-                catches your eye.
+                Mira nuestros vehículos actuales y encuentra aquel que
+                mejor se adapte a lo que buscas.
               </p>
 
               <Link
                 href="/cars"
                 className="group mt-9 inline-flex items-center gap-5 bg-white px-6 py-4 font-montserrat text-[10px] font-semibold uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/90"
               >
-                Browse inventory
+                Explorar inventario
 
                 <ArrowUpRight
                   size={17}
@@ -705,7 +705,7 @@ function ContactInfo({
 //                 ...current,
 //                 message:
 //                   current.message ||
-//                   `Hello, I'm interested in the ${selectedCar.year} ${selectedCar.make} ${selectedCar.model}. Please send me more information about this vehicle.`,
+//                   `Hello, I'm interested in the ${selectedCar.year} ${selectedCar.make} ${selectedCar.model}. Please send me more information about this vehículo.`,
 //               }));
 //             }
 //           }
@@ -750,12 +750,12 @@ function ContactInfo({
 
 //       if (!response.ok || !result.success) {
 //         throw new Error(
-//           result.message || "Failed to send inquiry"
+//           result.message || "No se pudo enviar la consulta"
 //         );
 //       }
 
 //       setSuccess(
-//         "Your demo inquiry has been submitted successfully."
+//         "Tus datosr demo consulta has been submitted successfully."
 //       );
 
 //       setForm({
@@ -767,7 +767,7 @@ function ContactInfo({
 //     } catch (submitError) {
 //       setError(
 //         submitError.message ||
-//           "Something went wrong. Please try again."
+//           "Algo salió mal. Inténtalo de nuevo."
 //       );
 //     } finally {
 //       setSubmitting(false);
@@ -784,7 +784,7 @@ function ContactInfo({
 //       <section className="relative h-[40dvh] min-h-[320px] overflow-hidden bg-[#e8e8e5] md:min-h-[440px]">
 //         <Image
 //           src={business?.heroImage || "/images/cars/car1.jpg"}
-//           alt="Demo vehicle contact page"
+//           alt="Demo vehículo contact page"
 //           fill
 //           priority
 //           sizes="100vw"
@@ -798,13 +798,13 @@ function ContactInfo({
 //         <div className="relative z-10 mx-auto flex h-full max-w-[1800px] items-end px-6 pb-10 md:px-10 md:pb-14 lg:px-14">
 //           <div className="max-w-5xl">
 //             <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/65 md:text-xs">
-//               Get in touch
+//               Ponerse en contacto
 //             </p>
 
 //             <h1 className="mt-3 font-bebas text-6xl leading-[0.9] tracking-wide text-white md:text-8xl lg:text-9xl">
-//               Let us talk
+//               Hablemos
 //               <br />
-//               about your next car.
+//               sobre tu próximo vehículo.
 //             </h1>
 //           </div>
 //         </div>
@@ -819,19 +819,19 @@ function ContactInfo({
 //           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
 //             <div>
 //               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35 md:text-xs">
-//                 Contact us
+//                 Contáctanos
 //               </p>
 
 //               <h2 className="mt-5 max-w-4xl font-bebas text-5xl leading-[0.95] tracking-wide md:text-7xl lg:text-8xl">
-//                 Questions?
+//                 ¿Preguntas?
 //                 <br />
-//                 We are here.
+//                 Estamos aquí.
 //               </h2>
 //             </div>
 
 //             <div className="flex items-end">
 //               <p className="max-w-xl font-montserrat text-sm leading-7 text-black/55 md:text-base md:leading-8">
-//                 Have a question about a vehicle, want to arrange a visit,
+//                 Have a question about a vehículo, want to arrange a visit,
 //                 schedule a test drive or simply need more information? Send us
 //                 a message and our team will get back to you.
 //               </p>
@@ -855,11 +855,11 @@ function ContactInfo({
 //               <div className="flex items-center justify-between">
 //                 <div>
 //                   <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35">
-//                     Contact details
+//                     Datos de contacto
 //                   </p>
 
 //                   <h3 className="mt-3 font-bebas text-4xl tracking-wide md:text-5xl">
-//                     Reach us
+//                     Contáctanos
 //                   </h3>
 //                 </div>
 
@@ -894,11 +894,11 @@ function ContactInfo({
 //               <div className="flex items-start justify-between gap-6">
 //                 <div>
 //                   <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/35">
-//                     Send an inquiry
+//                     Enviar una consulta
 //                   </p>
 
 //                   <h3 className="mt-3 font-bebas text-4xl tracking-wide md:text-5xl">
-//                     Tell us what you need.
+//                     Cuéntanos qué necesitas.
 //                   </h3>
 //                 </div>
 
@@ -933,7 +933,7 @@ function ContactInfo({
 
 //                     <div className="flex flex-1 flex-col justify-center p-5">
 //                       <p className="font-montserrat text-[9px] font-medium uppercase tracking-[0.2em] text-black/35">
-//                         Vehicle inquiry
+//                         Vehículo consulta
 //                       </p>
 
 //                       <h4 className="mt-2 font-bebas text-3xl tracking-wide">
@@ -977,7 +977,7 @@ function ContactInfo({
 //                     htmlFor="customerName"
 //                     className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
 //                   >
-//                     Full name
+//                     Nombre completo
 //                   </label>
 
 //                   <input
@@ -987,7 +987,7 @@ function ContactInfo({
 //                     onChange={handleChange}
 //                     required
 //                     maxLength={100}
-//                     placeholder="John Smith"
+//                     placeholder="Juan Pérez"
 //                     className="h-14 w-full border-b border-black/15 bg-transparent px-1 font-montserrat text-sm outline-none placeholder:text-black/25 transition-colors focus:border-black"
 //                   />
 //                 </div>
@@ -1020,9 +1020,9 @@ function ContactInfo({
 //                       htmlFor="email"
 //                       className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
 //                     >
-//                       Email
+//                       Correo electrónico
 //                       <span className="ml-1 font-normal text-black/30">
-//                         (optional)
+//                         (opcional)
 //                       </span>
 //                     </label>
 
@@ -1045,7 +1045,7 @@ function ContactInfo({
 //                     htmlFor="message"
 //                     className="mb-2 block font-montserrat text-[10px] font-semibold uppercase tracking-[0.18em] text-black/50"
 //                   >
-//                     Message
+//                     Mensaje
 //                   </label>
 
 //                   <textarea
@@ -1056,7 +1056,7 @@ function ContactInfo({
 //                     required
 //                     maxLength={2000}
 //                     rows={6}
-//                     placeholder="How can we help?"
+//                     placeholder="¿Cómo podemos ayudarte?"
 //                     className="w-full resize-none border-b border-black/15 bg-transparent px-1 py-3 font-montserrat text-sm leading-7 outline-none placeholder:text-black/25 transition-colors focus:border-black"
 //                   />
 //                 </div>
@@ -1068,7 +1068,7 @@ function ContactInfo({
 //                   className="group inline-flex w-full items-center justify-between bg-black px-6 py-5 font-montserrat text-[10px] font-semibold uppercase tracking-[0.2em] text-white transition-colors hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-50"
 //                 >
 //                   <span>
-//                     {submitting ? "Sending..." : "Send message"}
+//                     {submitting ? "Enviando..." : "Enviar mensaje"}
 //                   </span>
 
 //                   <Send
@@ -1132,7 +1132,7 @@ function ContactInfo({
 
 //             <div className="relative z-10 max-w-3xl">
 //               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/35 md:text-xs">
-//                 Your next vehicle
+//                 Tus datosr next vehículo
 //               </p>
 
 //               <h2 className="mt-5 font-bebas text-6xl leading-[0.9] tracking-wide md:text-8xl">
@@ -1142,7 +1142,7 @@ function ContactInfo({
 //               </h2>
 
 //               <p className="mt-6 max-w-xl font-montserrat text-sm leading-7 text-white/45 md:text-base">
-//                 Take a look at our current vehicles and find something that
+//                 Take a look at our current vehículos and find something that
 //                 catches your eye.
 //               </p>
 
@@ -1150,7 +1150,7 @@ function ContactInfo({
 //                 href="/cars"
 //                 className="group mt-9 inline-flex items-center gap-5 bg-white px-6 py-4 font-montserrat text-[10px] font-semibold uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/90"
 //               >
-//                 Browse inventory
+//                 Explorar inventario
 
 //                 <ArrowUpRight
 //                   size={17}

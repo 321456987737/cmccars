@@ -18,41 +18,41 @@ const slides = [
   {
     id: 1,
     image: "/images/cars/car1.jpg",
-    eyebrow: "YOUR NEXT CAR STARTS HERE",
-    title: "FIND YOUR NEXT DRIVE 01.",
+    eyebrow: "TU PRÓXIMO VEHÍCULO TE ESPERA",
+    title: "ENCUENTRA TU PRÓXIMO VEHÍCULO 01.",
     description:
-      "Explore a carefully selected collection of premium cars, exceptional SUVs, and everyday favorites.",
-    cta: "Explore Inventory",
+      "Explora una selección cuidadosa de vehículos premium, SUV excepcionales y opciones para el día a día.",
+    cta: "Explorar inventario",
     href: "/cars",
-    secondaryCta: "Book a Test Drive",
+    secondaryCta: "Reservar una prueba de manejo",
     secondaryHref: "/test-drive",
-    category: "DISCOVER OUR COLLECTION",
+    category: "DESCUBRE NUESTRA COLECCIÓN",
   },
   {
     id: 2,
     image: "/images/cars/car2.jpg",
-    eyebrow: "DRIVE SOMETHING EXCEPTIONAL",
-    title: "QUALITY YOU CAN FEEL.",
+    eyebrow: "CONDUCE ALGO EXCEPCIONAL",
+    title: "CALIDAD QUE SE SIENTE.",
     description:
-      "Discover vehicles selected for their performance, comfort, and character. Your next journey begins here.",
-    cta: "View All Vehicles",
+      "Descubre vehículos seleccionados por su rendimiento, comodidad y carácter. Tu próximo viaje comienza aquí.",
+    cta: "Ver todos los vehículos",
     href: "/cars",
-    secondaryCta: "Contact Showroom",
+    secondaryCta: "Contactar con el concesionario",
     secondaryHref: "/contact",
-    category: "QUALITY MEETS CONFIDENCE",
+    category: "CALIDAD QUE GENERA CONFIANZA",
   },
   {
     id: 3,
     image: "/images/cars/car3.jpg",
-    eyebrow: "YOUR JOURNEY. YOUR CHOICE.",
-    title: "THE RIGHT CAR. RIGHT HERE.",
+    eyebrow: "TU VIAJE. TU ELECCIÓN.",
+    title: "EL VEHÍCULO ADECUADO. AQUÍ.",
     description:
-      "From refined sedans to versatile SUVs, find a vehicle that fits your lifestyle and your next adventure.",
-    cta: "Find Your Car",
+      "Desde elegantes berlinas hasta SUV versátiles, encuentra un vehículo que se adapte a tu estilo de vida y a tu próxima aventura.",
+    cta: "Encuentra tu vehículo",
     href: "/cars",
-    secondaryCta: "Book a Test Drive",
+    secondaryCta: "Reservar una prueba de manejo",
     secondaryHref: "/test-drive",
-    category: "EXPLORE THE POSSIBILITIES",
+    category: "EXPLORA LAS POSIBILIDADES",
   },
 ];
 
@@ -91,7 +91,7 @@ export default function HeroSection() {
 
   return (
     <section
-      aria-label="Discover our vehicle inventory"
+      aria-label="Descubre nuestro inventario de vehículos"
       className="relative h-[720px] min-h-[650px] w-full overflow-hidden bg-[#171717] text-white md:h-[88svh] md:min-h-[680px] md:max-h-[1000px]"
     >
       {/* BACKGROUND CAROUSEL */}
@@ -105,7 +105,7 @@ export default function HeroSection() {
             >
               <Image
                 src={slide.image}
-                alt={`${slide.category} — featured vehicle`}
+                alt={`${slide.category} — vehículo destacado`}
                 fill
                 priority={slide.id === 1}
                 sizes="100vw"

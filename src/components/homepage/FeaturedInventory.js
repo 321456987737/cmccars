@@ -7,9 +7,9 @@ import { useCallback, useEffect, useState } from "react";
 import { ArrowUpRight, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 
-function formatPrice(price, currency) {
+function formatPrecio(price, currency) {
   if (typeof price !== "number") {
-    return "Price on request";
+    return "Consultar precio";
   }
 
   try {
@@ -30,7 +30,7 @@ function getImage(car) {
   );
 }
 
-function VehicleCard({ car, index }) {
+function CarCard({ car, index }) {
   const title = [car.year, car.make, car.model]
     .filter(Boolean)
     .join(" ");
@@ -38,7 +38,7 @@ function VehicleCard({ car, index }) {
   const imageAlt =
     car.images?.find((image) => image?.url)?.alt ||
     title ||
-    "Featured vehicle";
+    "Vehículo destacado";
 
   return (
     <motion.article
@@ -54,9 +54,9 @@ function VehicleCard({ car, index }) {
       <Link
         href={car._id ? `/cars/${car._id}` : "/cars"}
         className="block h-full"
-        aria-label={`View ${title}`}
+        aria-label={`Ver ${title}`}
       >
-        {/* Vehicle image */}
+        {/* Vehículo image */}
         <div className="relative aspect-[4/3] overflow-hidden bg-[#ebeae6]">
           <Image
             src={getImage(car)}
@@ -69,7 +69,7 @@ function VehicleCard({ car, index }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-100" />
 
           <span className="absolute left-1 top-1 border border-white/35 bg-black/35 px-2 py-1 font-montserrat text-[8px] font-medium uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-            {car.bodyType || "Featured vehicle"}
+            {car.bodyType || "Vehículo destacado"}
           </span>
 
           <span className="absolute bottom-2 right-2 flex h-6 w-6 items-center justify-center border border-white/50 bg-white text-black transition-colors duration-300 group-hover:bg-black group-hover:text-white">
@@ -77,11 +77,11 @@ function VehicleCard({ car, index }) {
           </span>
         </div>
 
-        {/* Vehicle details */}
+        {/* Vehículo details */}
         <div className="border-b border-black/15 py-5 sm:py-6">
           <div className="mb-2 flex items-center justify-between gap-4">
             <p className="min-w-0 truncate font-montserrat text-[8px] font-medium uppercase tracking-[0.25em] text-black/45 sm:text-[9px]">
-              {car.make || "Selected vehicle"}
+              {car.make || "Selected vehículo"}
             </p>
 
             {car.year && (
@@ -92,7 +92,7 @@ function VehicleCard({ car, index }) {
           </div>
 
           <h3 className="font-bebas text-3xl leading-[0.95] tracking-[-0.02em] sm:text-4xl">
-            {car.model || "Vehicle details"}
+            {car.model || "Vehículo details"}
           </h3>
 
           <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 font-montserrat text-[8px] uppercase tracking-[0.14em] text-black/40">
@@ -112,7 +112,7 @@ function VehicleCard({ car, index }) {
                 <span className="h-[3px] w-[3px] rounded-full bg-black/25" />
                 <span>
                   {Number(car.mileage).toLocaleString("en-US")}{" "}
-                  {car.mileageUnit || "km"}
+                  {car.mileageUnidad || "km"}
                 </span>
               </>
             )}
@@ -120,11 +120,11 @@ function VehicleCard({ car, index }) {
 
           <div className="mt-6 flex items-end justify-between gap-3 border-t border-black/10 pt-5">
             <span className="font-montserrat text-[8px] uppercase tracking-[0.2em] text-black/40">
-              Asking price
+              Precio solicitado
             </span>
 
             <span className="text-right font-montserrat text-sm font-semibold tracking-[0.01em]">
-              {formatPrice(car.price, car.currency)}
+              {formatPrecio(car.price, car.currency)}
             </span>
           </div>
         </div>
@@ -133,7 +133,7 @@ function VehicleCard({ car, index }) {
   );
 }
 
-function VehicleCardSkeleton() {
+function CarCardSkeleton() {
   return (
     <div className="animate-pulse overflow-hidden" aria-hidden="true">
       <div className="aspect-[4/3] bg-black/[0.06]" />
@@ -153,12 +153,12 @@ function VehicleCardSkeleton() {
   );
 }
 
-export default function FeaturedInventory() {
+export default function DestacadoInventario() {
   const [cars, setCars] = useState([]);
   const [status, setStatus] = useState("loading");
   const [error, setError] = useState("");
 
-  const fetchFeaturedCars = useCallback(async (signal, retry = false) => {
+  const fetchDestacadoVehículos = useCallback(async (signal, retry = false) => {
     if (retry) {
       setStatus("loading");
       setError("");
@@ -175,25 +175,25 @@ export default function FeaturedInventory() {
 
       if (!response.ok || !result.success) {
         throw new Error(
-          result.message || "Unable to load featured vehicles."
+          result.message || "Unable to load featured vehículos."
         );
       }
 
-      const featuredCars = Array.isArray(result.data)
+      const featuredVehículos = Array.isArray(result.data)
         ? result.data
         : [];
 
-      setCars(featuredCars);
-      setStatus(featuredCars.length > 0 ? "ready" : "empty");
+      setCars(featuredVehículos);
+      setStatus(featuredVehículos.length > 0 ? "ready" : "empty");
     } catch (fetchError) {
       if (fetchError.name === "AbortError") {
         return;
       }
 
-      console.error("Featured inventory fetch error:", fetchError);
+      console.error("Destacado inventory fetch error:", fetchError);
 
       setError(
-        "We couldn't load the featured vehicles. Please try again."
+        "We couldn't load the featured vehículos. Please try again."
       );
 
       setStatus("error");
@@ -205,18 +205,18 @@ useEffect(() => {
   const controller = new AbortController();
 
   const timeoutId = setTimeout(() => {
-    fetchFeaturedCars(controller.signal);
+    fetchDestacadoVehículos(controller.signal);
   }, 0);
 
   return () => {
     clearTimeout(timeoutId);
     controller.abort();
   };
-}, [fetchFeaturedCars]);
+}, [fetchDestacadoVehículos]);
 
 
   const handleRetry = () => {
-    fetchFeaturedCars(undefined, true);
+    fetchDestacadoVehículos(undefined, true);
   };
 
   return (
@@ -242,7 +242,7 @@ useEffect(() => {
               transition={{ duration: 0.5, delay: 0.04 }}
               className="font-bebas text-5xl leading-[0.88] tracking-[-0.035em] sm:text-6xl md:text-7xl lg:text-[clamp(5rem,7vw,7.5rem)]"
             >
-              Featured inventory
+              Destacado inventory
             </motion.h2>
           </div>
 
@@ -250,7 +250,7 @@ useEffect(() => {
             href="/cars"
             className="group inline-flex w-fit items-center gap-3 border-b border-black/25 pb-2 font-montserrat text-[9px] font-semibold uppercase tracking-[0.18em] text-black/65 transition-colors duration-300 hover:border-black hover:text-black"
           >
-            Explore all vehicles
+            Explore all vehículos
 
             <ArrowUpRight
               size={15}
@@ -264,7 +264,7 @@ useEffect(() => {
         {status === "loading" ? (
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 4 }, (_, index) => (
-              <VehicleCardSkeleton key={index} />
+              <CarCardSkeleton key={index} />
             ))}
           </div>
         ) : status === "error" ? (
@@ -290,7 +290,7 @@ useEffect(() => {
           /* Empty state */
           <div className="flex min-h-64 flex-col items-center justify-center border border-black/10 px-6 text-center">
             <p className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-black/45">
-              No featured vehicles are available right now.
+              No featured vehículos are available right now.
             </p>
 
             <Link
@@ -301,10 +301,10 @@ useEffect(() => {
             </Link>
           </div>
         ) : (
-          /* Featured vehicles grid */
+          /* Destacado vehículos grid */
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
             {cars.slice(0, 8).map((car, index) => (
-              <VehicleCard
+              <CarCard
                 key={car._id || `${car.make}-${car.model}-${index}`}
                 car={car}
                 index={index}
@@ -319,7 +319,7 @@ useEffect(() => {
             href="/cars"
             className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#181818] px-6 py-4 font-montserrat text-[9px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-black/75 sm:px-8"
           >
-            View complete inventory
+            Ver complete inventory
 
             <ArrowUpRight
               size={15}

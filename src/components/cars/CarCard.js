@@ -3,11 +3,11 @@ import Link from "next/link";
 export default function CarCard({ car }) {
   const image = car.images?.[0];
 
-  const formattedPrice = new Intl.NumberFormat("en-US", {
+  const formattedPrecio = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 0,
   }).format(car.price);
 
-  const formattedMileage = new Intl.NumberFormat("en-US").format(
+  const formattedKilometraje = new Intl.NumberFormat("en-US").format(
     car.mileage || 0
   );
 
@@ -23,7 +23,7 @@ export default function CarCard({ car }) {
             />
           ) : (
             <div className="flex h-full items-center justify-center text-sm text-black/40">
-              No image available
+              Sin imagen available
             </div>
           )}
 
@@ -33,7 +33,7 @@ export default function CarCard({ car }) {
 
           {car.isFeatured && (
             <div className="absolute right-4 top-4 rounded-full bg-black px-3 py-1.5 text-xs font-semibold text-white">
-              Featured
+              Destacado
             </div>
           )}
         </div>
@@ -49,12 +49,12 @@ export default function CarCard({ car }) {
             </Link>
 
             <p className="mt-1 text-sm text-black/50">
-              {car.year} · {formattedMileage} {car.mileageUnit}
+              {car.year} · {formattedKilometraje} {car.mileageUnidad}
             </p>
           </div>
 
           <p className="shrink-0 text-base font-semibold text-black">
-            {car.currency} {formattedPrice}
+            {car.currency} {formattedPrecio}
           </p>
         </div>
 

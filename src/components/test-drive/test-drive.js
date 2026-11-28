@@ -279,12 +279,12 @@ export default function TestDrivePage() {
 
   function goToStepTwo() {
     if (!form.customerName.trim()) {
-      setError("Please enter your name.");
+      setError("Introduce tu nombre.");
       return;
     }
 
     if (!form.phone.trim()) {
-      setError("Please enter your phone number.");
+      setError("Introduce tu número de teléfono.");
       return;
     }
 
@@ -295,12 +295,12 @@ export default function TestDrivePage() {
 
   function goToStepThree() {
     if (!form.date) {
-      setError("Please select a date.");
+      setError("Selecciona una fecha.");
       return;
     }
 
     if (!form.time) {
-      setError("Please select a time.");
+      setError("Selecciona una hora.");
       return;
     }
 
@@ -325,30 +325,30 @@ export default function TestDrivePage() {
     event.preventDefault();
 
     if (!carId) {
-      setError("No vehicle has been selected.");
+      setError("No se ha seleccionado ningún vehículo.");
       return;
     }
 
     if (!form.customerName.trim()) {
-      setError("Please enter your name.");
+      setError("Introduce tu nombre.");
       setStep(1);
       return;
     }
 
     if (!form.phone.trim()) {
-      setError("Please enter your phone number.");
+      setError("Introduce tu número de teléfono.");
       setStep(1);
       return;
     }
 
     if (!form.date) {
-      setError("Please select a date.");
+      setError("Selecciona una fecha.");
       setStep(2);
       return;
     }
 
     if (!form.time) {
-      setError("Please select a time.");
+      setError("Selecciona una hora.");
       setStep(2);
       return;
     }
@@ -372,7 +372,7 @@ export default function TestDrivePage() {
 
       if (!response.ok) {
         throw new Error(
-          result.message || "Something went wrong. Please try again."
+          result.message || "Algo salió mal. Inténtalo de nuevo."
         );
       }
 
@@ -381,7 +381,7 @@ export default function TestDrivePage() {
       scrollToTop();
     } catch (error) {
       setError(
-        error.message || "Something went wrong. Please try again."
+        error.message || "Algo salió mal. Inténtalo de nuevo."
       );
     } finally {
       setSubmitting(false);
@@ -408,25 +408,25 @@ export default function TestDrivePage() {
         <section className="flex min-h-[75vh] items-center justify-center px-6">
           <div className="max-w-xl text-center">
             <p className="mb-5 font-montserrat text-[11px] uppercase tracking-[0.3em] text-black/45">
-              Test Drive
+              Prueba de manejo
             </p>
 
             <h1 className="font-bebas text-[64px] leading-[0.85] tracking-wide sm:text-[90px]">
-              VEHICLE NOT
+              VEHÍCULO NO
               <br />
-              SELECTED
+              SELECCIONADO
             </h1>
 
             <p className="mx-auto mt-7 max-w-md font-montserrat text-[13px] leading-6 text-black/55">
-              Please select a vehicle from our inventory before requesting a
-              test drive.
+              Selecciona un vehículo de nuestro inventario antes de solicitar
+              una prueba de conducción.
             </p>
 
             <Link
               href="/cars"
               className="group mt-9 inline-flex items-center gap-3 bg-black px-7 py-4 font-montserrat text-[10px] font-medium uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-black/80"
             >
-              Browse inventory
+              Explorar inventario
 
               <ArrowUpRight
                 size={15}
@@ -453,7 +453,7 @@ export default function TestDrivePage() {
     .filter(Boolean)
     .join(" ");
 
-  const formattedPrice =
+  const formattedPrecio =
     car.price !== undefined && car.price !== null
       ? new Intl.NumberFormat("en-US", {
           style: "currency",
@@ -462,7 +462,7 @@ export default function TestDrivePage() {
         }).format(car.price)
       : null;
 
-  const selectedDate = dateOptions.find(
+  const selectedFecha = dateOptions.find(
     (item) => item.value === form.date
   );
 
@@ -503,38 +503,35 @@ export default function TestDrivePage() {
               </div>
 
               <p className="mb-5 font-montserrat text-[11px] uppercase tracking-[0.3em] text-white/55">
-                Request received
+                Solicitud recibida
               </p>
 
               <h1 className="font-bebas text-[78px] leading-[0.82] tracking-wide text-white sm:text-[110px] lg:text-[145px]">
-                SEE YOU
+                NOS VEMOS
                 <br />
-                BEHIND THE
-                <br />
-                WHEEL.
+                AL VOLANTE.
               </h1>
 
               <p className="mt-9 max-w-xl font-montserrat text-[14px] leading-7 text-white/70">
-                Your test drive request for the{" "}
-                <span className="text-white">{carName}</span> has been
-                received. Our team will get in touch with you to confirm the
-                appointment.
+                Hemos recibido tu solicitud de prueba de conducción para el{" "}
+                <span className="text-white">{carName}</span>. Nuestro equipo
+                se pondrá en contacto contigo para confirmar la cita.
               </p>
 
               <div className="mt-12 grid max-w-2xl grid-cols-2 border-t border-white/20">
                 <div className="border-r border-white/20 py-6 pr-6">
                   <p className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-white/40">
-                    Date
+                    Fecha
                   </p>
 
                   <p className="mt-2 font-montserrat text-[13px] text-white">
-                    {selectedDate?.full || form.date}
+                    {selectedFecha?.full || form.date}
                   </p>
                 </div>
 
                 <div className="py-6 pl-6">
                   <p className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-white/40">
-                    Time
+                    Hora
                   </p>
 
                   <p className="mt-2 font-montserrat text-[13px] text-white">
@@ -548,7 +545,7 @@ export default function TestDrivePage() {
                   href={`/cars/${car.car._id}`}
                   className="group inline-flex items-center gap-3 bg-white px-7 py-4 font-montserrat text-[10px] font-medium uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-white/90"
                 >
-                  View vehicle
+                  Ver vehículo
 
                   <ArrowUpRight
                     size={15}
@@ -561,7 +558,7 @@ export default function TestDrivePage() {
                   href="/cars"
                   className="inline-flex items-center gap-3 border border-white/30 px-7 py-4 font-montserrat text-[10px] font-medium uppercase tracking-[0.2em] text-white transition-all duration-300 hover:border-white"
                 >
-                  Browse inventory
+                  Explorar inventario
                 </Link>
               </div>
             </div>
@@ -631,7 +628,7 @@ export default function TestDrivePage() {
           <div className="w-full">
             <div className="mb-10 flex items-center justify-between border-b border-white/20 pb-5">
               <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-white/55">
-                Test Drive Experience
+                Experiencia de prueba de conducción
               </p>
 
               <p className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-white/40">
@@ -641,16 +638,16 @@ export default function TestDrivePage() {
 
             <div className="max-w-5xl">
               <p className="mb-4 font-montserrat text-[11px] uppercase tracking-[0.25em] text-white/55">
-                {car.year} · {car.bodyType || "Vehicle"}
+                {car.year} · {car.bodyType || "Vehículo"}
               </p>
 
               <h1 className="font-bebas text-[76px] leading-[0.82] tracking-wide text-white sm:text-[110px] lg:text-[150px]">
                 {carName}
               </h1>
 
-              {formattedPrice && (
+              {formattedPrecio && (
                 <p className="mt-7 font-montserrat text-[14px] tracking-wide text-white/65">
-                  {formattedPrice}
+                  {formattedPrecio}
                 </p>
               )}
             </div>
@@ -681,7 +678,7 @@ export default function TestDrivePage() {
             </span>
 
             <span className="ml-3 font-montserrat text-[10px] uppercase tracking-[0.18em]">
-              You
+              Tus datos
             </span>
           </button>
 
@@ -704,7 +701,7 @@ export default function TestDrivePage() {
             </span>
 
             <span className="ml-3 font-montserrat text-[10px] uppercase tracking-[0.18em]">
-              Date & Time
+              Fecha y hora
             </span>
           </button>
 
@@ -732,7 +729,7 @@ export default function TestDrivePage() {
             </span>
 
             <span className="ml-3 font-montserrat text-[10px] uppercase tracking-[0.18em]">
-              Final details
+              Datos finales
             </span>
           </button>
         </div>
@@ -759,16 +756,16 @@ export default function TestDrivePage() {
               <div className="grid gap-14 lg:grid-cols-[0.35fr_1fr] lg:gap-24">
                 <div>
                   <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-black/40">
-                    01 — Your details
+                    01 — Tus datos
                   </p>
 
                   <h2 className="mt-6 max-w-xs font-bebas text-[64px] leading-[0.85] tracking-wide sm:text-[82px]">
-                    LET&apos;S GET TO KNOW YOU.
+                    CONÓCEMOS UN POCO.
                   </h2>
 
                   <p className="mt-7 max-w-sm font-montserrat text-[12px] leading-6 text-black/50">
-                    Tell us a little about yourself so our team can prepare
-                    everything for your visit.
+                    Cuéntanos un poco sobre ti para que nuestro equipo pueda
+                    preparar todo para tu visita.
                   </p>
                 </div>
 
@@ -778,7 +775,7 @@ export default function TestDrivePage() {
                     <label className="group block">
                       <span className="mb-3 flex items-center gap-2 font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/45">
                         <User size={13} strokeWidth={1.4} />
-                        Full name
+                        Nombre completo
                       </span>
 
                       <input
@@ -790,7 +787,7 @@ export default function TestDrivePage() {
                             event.target.value
                           )
                         }
-                        placeholder="Your name"
+                        placeholder="Tu nombre"
                         className="w-full border-b border-black/15 bg-transparent px-0 py-4 font-montserrat text-[15px] outline-none transition-colors placeholder:text-black/25 focus:border-black"
                       />
                     </label>
@@ -799,7 +796,7 @@ export default function TestDrivePage() {
                     <label className="group block">
                       <span className="mb-3 flex items-center gap-2 font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/45">
                         <Phone size={13} strokeWidth={1.4} />
-                        Phone number
+                        Número de teléfono
                       </span>
 
                       <input
@@ -811,7 +808,7 @@ export default function TestDrivePage() {
                             event.target.value
                           )
                         }
-                        placeholder="Your phone number"
+                        placeholder="Tu número de teléfono"
                         className="w-full border-b border-black/15 bg-transparent px-0 py-4 font-montserrat text-[15px] outline-none transition-colors placeholder:text-black/25 focus:border-black"
                       />
                     </label>
@@ -820,9 +817,9 @@ export default function TestDrivePage() {
                     <label className="group block md:col-span-2">
                       <span className="mb-3 flex items-center gap-2 font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/45">
                         <Mail size={13} strokeWidth={1.4} />
-                        Email address
+                        Dirección de correo electrónico
                         <span className="text-black/25">
-                          (optional)
+                          (opcional)
                         </span>
                       </span>
 
@@ -884,16 +881,16 @@ export default function TestDrivePage() {
               <div className="grid gap-14 lg:grid-cols-[0.35fr_1fr] lg:gap-24">
                 <div>
                   <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-black/40">
-                    02 — Your appointment
+                    02 — Tu cita
                   </p>
 
                   <h2 className="mt-6 max-w-xs font-bebas text-[64px] leading-[0.85] tracking-wide sm:text-[82px]">
-                    WHEN WOULD YOU LIKE TO EXPERIENCE IT?
+                    ¿CUÁNDO QUIERES PROBARLO?
                   </h2>
 
                   <p className="mt-7 max-w-sm font-montserrat text-[12px] leading-6 text-black/50">
-                    Choose a day and time that works for you. We&apos;ll take
-                    care of the rest.
+                    Elige el día y la hora que mejor te convengan. Nosotros
+                    nos ocuparemos del resto.
                   </p>
                 </div>
 
@@ -902,7 +899,7 @@ export default function TestDrivePage() {
                   <div>
                     <div className="mb-6 flex items-center gap-3">
                       <span className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/40">
-                        Select a date
+                        Selecciona una fecha
                       </span>
 
                       <div className="h-px flex-1 bg-black/10" />
@@ -966,7 +963,7 @@ export default function TestDrivePage() {
                           size={13}
                           strokeWidth={1.4}
                         />
-                        Select a time
+                        Selecciona una hora
                       </span>
 
                       <div className="h-px flex-1 bg-black/10" />
@@ -1057,16 +1054,16 @@ export default function TestDrivePage() {
               <div className="grid gap-14 lg:grid-cols-[0.35fr_1fr] lg:gap-24">
                 <div>
                   <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-black/40">
-                    03 — Final details
+                    03 — Datos finales
                   </p>
 
                   <h2 className="mt-6 max-w-xs font-bebas text-[64px] leading-[0.85] tracking-wide sm:text-[82px]">
-                    ANYTHING WE SHOULD KNOW?
+                    ¿HAY ALGO QUE DEBAMOS SABER?
                   </h2>
 
                   <p className="mt-7 max-w-sm font-montserrat text-[12px] leading-6 text-black/50">
-                    Let us know if there is anything specific you&apos;d like
-                    to discuss or experience during your visit.
+                    Indícanos si hay algo concreto que quieras comentar o
+                    probar durante tu visita.
                   </p>
                 </div>
 
@@ -1080,10 +1077,10 @@ export default function TestDrivePage() {
                           strokeWidth={1.4}
                         />
 
-                        Message
+                        Mensaje
 
                         <span className="text-black/25">
-                          (optional)
+                          (opcional)
                         </span>
                       </span>
 
@@ -1095,7 +1092,7 @@ export default function TestDrivePage() {
                             event.target.value
                           )
                         }
-                        placeholder="Tell us anything you'd like us to know..."
+                        placeholder="Cuéntanos cualquier detalle que quieras comunicar..."
                         rows={8}
                         className="w-full resize-none border border-black/10 bg-[#fafafa] px-5 py-5 font-montserrat text-[13px] leading-6 outline-none transition-colors placeholder:text-black/25 focus:border-black/30"
                       />
@@ -1106,7 +1103,7 @@ export default function TestDrivePage() {
                       <div className="grid grid-cols-1 border-b border-black/10 sm:grid-cols-3">
                         <div className="border-b border-black/10 px-0 py-6 sm:border-b-0 sm:border-r sm:px-6">
                           <p className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/40">
-                            Vehicle
+                            Vehículo
                           </p>
 
                           <p className="mt-2 font-montserrat text-[13px]">
@@ -1116,18 +1113,18 @@ export default function TestDrivePage() {
 
                         <div className="border-b border-black/10 px-0 py-6 sm:border-b-0 sm:border-r sm:px-6">
                           <p className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/40">
-                            Date
+                            Fecha
                           </p>
 
                           <p className="mt-2 font-montserrat text-[13px]">
-                            {selectedDate?.full ||
+                            {selectedFecha?.full ||
                               form.date}
                           </p>
                         </div>
 
                         <div className="px-0 py-6 sm:px-6">
                           <p className="font-montserrat text-[9px] uppercase tracking-[0.25em] text-black/40">
-                            Time
+                            Hora
                           </p>
 
                           <p className="mt-2 font-montserrat text-[13px]">
@@ -1166,8 +1163,8 @@ export default function TestDrivePage() {
                         className="group inline-flex items-center justify-center gap-4 bg-black px-9 py-5 font-montserrat text-[10px] font-medium uppercase tracking-[0.2em] text-white transition-all duration-300 hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {submitting
-                          ? "Sending request..."
-                          : "Request test drive"}
+                          ? "Enviando solicitud..."
+                          : "Solicitar prueba de conducción"}
 
                         {!submitting && (
                           <ArrowUpRight
@@ -1225,7 +1222,7 @@ export default function TestDrivePage() {
 
           <div className="px-6 py-12 sm:px-10 lg:px-16 lg:py-16">
             <p className="font-montserrat text-[9px] uppercase tracking-[0.3em] text-black/40">
-              Your selected vehicle
+              Vehículo seleccionado
             </p>
 
             <div className="mt-5 flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
@@ -1243,7 +1240,7 @@ export default function TestDrivePage() {
                 href={`/cars/${car.car._id}`}
                 className="group inline-flex w-fit items-center gap-3 border-b border-black/20 pb-2 font-montserrat text-[10px] uppercase tracking-[0.2em] transition-colors hover:border-black"
               >
-                View vehicle
+                Ver vehículo
 
                 <ArrowUpRight
                   size={14}
@@ -1268,7 +1265,7 @@ export default function TestDrivePage() {
             </p>
 
             <h2 className="mt-5 max-w-3xl font-bebas text-[64px] leading-[0.85] tracking-wide sm:text-[90px]">
-              TAKE YOUR TIME.
+              TÓMATELA CON CALMA.
               <br />
               FIND YOUR CAR.
             </h2>
@@ -1278,7 +1275,7 @@ export default function TestDrivePage() {
             href="/cars"
             className="group inline-flex w-fit items-center gap-4 border-b border-white/25 pb-3 font-montserrat text-[10px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:border-white hover:text-white"
           >
-            Explore inventory
+            Explorar inventario
 
             <ArrowUpRight
               size={16}

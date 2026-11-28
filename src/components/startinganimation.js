@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function CarStartup({
-  brand = "YOUR DEALERSHIP",
+  brand = "TU CONCESIONARIO",
   duration = 2600,
 }) {
   const [leaving, setLeaving] = useState(false);
@@ -27,17 +27,17 @@ export default function CarStartup({
   };
 }, [duration]);
   // useEffect(() => {
-  //   const fadeTimer = setTimeout(() => {
+  //   const fadeHorar = setHoraout(() => {
   //     setLeaving(true);
   //   }, Math.max(0, duration - 500));
 
-  //   const removeTimer = setTimeout(() => {
+  //   const removeHorar = setHoraout(() => {
   //     setVisible(false);
   //   }, duration);
 
   //   return () => {
-  //     clearTimeout(fadeTimer);
-  //     clearTimeout(removeTimer);
+  //     clearHoraout(fadeHorar);
+  //     clearHoraout(removeHorar);
   //   };
   // }, [duration]);
 
@@ -46,7 +46,7 @@ export default function CarStartup({
   return (
     <motion.div
       role="status"
-      aria-label={`${brand} loading`}
+      aria-label={`${brand} cargando`}
       initial={{ opacity: 1 }}
       animate={{ opacity: leaving ? 0 : 1 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -57,12 +57,12 @@ export default function CarStartup({
 
         {/* LOGO REVEAL */}
         <div className="relative w-44 sm:w-56">
-          <motion.div className="mb-8 not-even:">
-            Welcome to
+          <motion.div className="mb-8 text-sm font-medium uppercase tracking-[0.25em] text-white/60">
+            Bienvenido a
           </motion.div>
           <Image
             src="/logo.png"
-            alt={`${brand} logo`}
+            alt={`Logotipo de ${brand}`}
             width={512}
             height={512}
             priority
@@ -118,7 +118,7 @@ export default function CarStartup({
           }}
           className="mt-3 font-montserrat text-[9px] font-medium uppercase tracking-[0.3em] text-white/45"
         >
-          FIND YOUR PERFECT DRIVE
+          ENCUENTRA TU COCHE IDEAL
         </motion.p>
 
       </div>

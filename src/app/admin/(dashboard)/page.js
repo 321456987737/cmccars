@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-export default function AdminDashboardPage() {
+export default function AdminPanelPage() {
  
 
   const [data, setData] = useState(null);
@@ -12,7 +12,7 @@ export default function AdminDashboardPage() {
     useState("");
 
   useEffect(() => {
-    async function loadDashboard() {
+    async function loadPanel() {
       try {
         setLoading(true);
         setError("");
@@ -26,7 +26,7 @@ export default function AdminDashboardPage() {
 
         if (!response.ok) {
           throw new Error(
-            "Failed to load dashboard"
+            "No se pudo cargar el resumen"
           );
         }
 
@@ -35,7 +35,7 @@ export default function AdminDashboardPage() {
         if (!result.success) {
           throw new Error(
             result.message ||
-              "Failed to load dashboard"
+              "No se pudo cargar el resumen"
           );
         }
 
@@ -46,14 +46,14 @@ export default function AdminDashboardPage() {
         );
 
         setError(
-          "We couldn't load the dashboard."
+          "No pudimos cargar el resumen."
         );
       } finally {
         setLoading(false);
       }
     }
 
-    loadDashboard();
+    loadPanel();
   }, []);
 
   const stats = data?.stats;
@@ -62,15 +62,15 @@ export default function AdminDashboardPage() {
     <div className="mx-auto max-w-7xl md:pb-0 pb-20">
       <div className="mb-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-black/35">
-          Overview
+          Resumen
         </p>
 
         <h1 className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl">
-          Dashboard
+          Panel
         </h1>
 
         <p className="mt-2 text-sm text-black/45">
-          Manage your dealership website and inventory.
+          Gestiona el sitio web y el inventario de tu concesionario.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ export default function AdminDashboardPage() {
       {/* Main Stats */}
       <div className="grid gap-4 grid-cols-2 xl:grid-cols-4">
         <StatCard
-          title="Total Cars"
+          title="Total de vehículos"
           value={
             loading ? "—" : stats?.totalCars ?? 0
           }
@@ -91,25 +91,25 @@ export default function AdminDashboardPage() {
         />
 
         <StatCard
-          title="Available"
+          title="Disponible"
           value={
             loading
               ? "—"
               : stats?.availableCars ?? 0
           }
-          href="/admin/cars?status=Available"
+          href="/admin/cars?status=Disponible"
         />
 
         <StatCard
-          title="Sold"
+          title="Vendidos"
           value={
             loading ? "—" : stats?.soldCars ?? 0
           }
-          href="/admin/cars?status=Sold"
+          href="/admin/cars?status=Vendidos"
         />
 
         <StatCard
-          title="New Inquiries"
+          title="Consultas nuevas"
           value={
             loading
               ? "—"
@@ -122,7 +122,7 @@ export default function AdminDashboardPage() {
       {/* Secondary Stats */}
       <div className="mt-4 grid gap-4 grid-cols-2 xl:grid-cols-4">
         <MiniStat
-          title="Reserved Cars"
+          title="Vehículos reservados"
           value={
             loading
               ? "—"
@@ -131,7 +131,7 @@ export default function AdminDashboardPage() {
         />
 
         <MiniStat
-          title="Total Inquiries"
+          title="Consultas totales"
           value={
             loading
               ? "—"
@@ -140,7 +140,7 @@ export default function AdminDashboardPage() {
         />
 
         <MiniStat
-          title="Pending Test Drives"
+          title="Pruebas de conducción pendientes"
           value={
             loading
               ? "—"
@@ -149,7 +149,7 @@ export default function AdminDashboardPage() {
         />
 
         <MiniStat
-          title="Confirmed Test Drives"
+          title="Pruebas de conducción confirmadas"
           value={
             loading
               ? "—"
@@ -158,36 +158,36 @@ export default function AdminDashboardPage() {
         />
       </div>
 
-      {/* Quick Actions */}
+      {/* Quick Acciones */}
       <section className="mt-8">
         <div className="mb-4">
           <h2 className="text-lg font-semibold">
-            Quick actions
+            Acciones rápidas
           </h2>
         </div>
 
         <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
-          <QuickAction
+          <QuickAcción
             href="/admin/cars/new"
-            title="Add Car"
-            description="Add a new vehicle to your inventory."
+            title="Añadir vehículo"
+            description="Añade un nuevo vehículo a tu inventario."
           />
 
-          <QuickAction
+          <QuickAcción
             href="/admin/inquiries"
-            title="View Inquiries"
-            description="See customers interested in your vehicles."
+            title="Ver consultas"
+            description="Consulta los clientes interesados en tus vehículos."
           />
 
-          <QuickAction
+          <QuickAcción
             href="/admin/test-drives"
-            title="Test Drives"
-            description="Manage upcoming test-drive requests."
+            title="Pruebas de manejo"
+            description="Gestiona las próximas solicitudes de prueba de conducción."
           />
 
-          <QuickAction
+          <QuickAcción
             href="/admin/businesses"
-            title="Business Profile"
+            title="Perfil del negocio"
             description="Update dealership information."
           />
         </div>
@@ -195,13 +195,13 @@ export default function AdminDashboardPage() {
 
       {/* Recent Content */}
       <div className="mt-8 grid gap-6 xl:grid-cols-2">
-        <RecentCars
-          cars={data?.recentCars || []}
+        <RecentVehículos
+          cars={data?.recentVehículos || []}
           loading={loading}
         />
 
         <RecentInquiries
-          inquiries={
+          consultas={
             data?.recentInquiries || []
           }
           loading={loading}
@@ -239,7 +239,7 @@ function StatCard({
       </p>
 
       <p className="mt-4 text-xs font-medium text-black/35">
-        View details →
+        Ver details →
       </p>
     </Link>
   );
@@ -262,7 +262,7 @@ function MiniStat({
   );
 }
 
-function QuickAction({
+function QuickAcción({
   href,
   title,
   description,
@@ -287,7 +287,7 @@ function QuickAction({
   );
 }
 
-function RecentCars({
+function RecentVehículos({
   cars,
   loading,
 }) {
@@ -296,11 +296,11 @@ function RecentCars({
       <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
         <div>
           <h2 className="font-semibold">
-            Recent Cars
+            Recent Vehículos
           </h2>
 
           <p className="mt-1 text-xs text-black/40">
-            Recently added vehicles
+            Recently added vehículos
           </p>
         </div>
 
@@ -308,7 +308,7 @@ function RecentCars({
           href="/admin/cars"
           className="text-xs font-semibold underline underline-offset-4"
         >
-          View all
+          Ver all
         </Link>
       </div>
 
@@ -343,7 +343,7 @@ function RecentCars({
                 </p>
               </div>
 
-              <StatusBadge
+              <EstadoBadge
                 status={car.status}
               />
             </div>
@@ -357,7 +357,7 @@ function RecentCars({
 }
 
 function RecentInquiries({
-  inquiries,
+  consultas,
   loading,
 }) {
   return (
@@ -365,7 +365,7 @@ function RecentInquiries({
       <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
         <div>
           <h2 className="font-semibold">
-            Recent Inquiries
+            Consultas recientes
           </h2>
 
           <p className="mt-1 text-xs text-black/40">
@@ -377,48 +377,48 @@ function RecentInquiries({
           href="/admin/inquiries"
           className="text-xs font-semibold underline underline-offset-4"
         >
-          View all
+          Ver all
         </Link>
       </div>
 
       <div className="divide-y divide-black/10">
         {loading ? (
           <LoadingRows />
-        ) : inquiries.length > 0 ? (
-          inquiries.map((inquiry) => (
+        ) : consultas.length > 0 ? (
+          consultas.map((consulta) => (
             <div
-              key={inquiry._id}
+              key={consulta._id}
               className="px-6 py-4"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <p className="text-sm font-semibold">
-                    {inquiry.customerName}
+                    {consulta.customerName}
                   </p>
 
                   <p className="mt-1 text-xs text-black/40">
-                    {inquiry.phone}
+                    {consulta.phone}
                   </p>
 
-                  {inquiry.carId && (
+                  {consulta.carId && (
                     <p className="mt-2 truncate text-xs text-black/55">
                       Interested in{" "}
                       <span className="font-medium">
-                        {inquiry.carId.make}{" "}
-                        {inquiry.carId.model}
+                        {consulta.carId.make}{" "}
+                        {consulta.carId.model}
                       </span>
                     </p>
                   )}
                 </div>
 
-                <StatusBadge
-                  status={inquiry.status}
+                <EstadoBadge
+                  status={consulta.status}
                 />
               </div>
             </div>
           ))
         ) : (
-          <EmptyRow text="No inquiries yet." />
+          <EmptyRow text="No consultas yet." />
         )}
       </div>
     </section>
@@ -434,11 +434,11 @@ function RecentTestDrives({
       <div className="flex items-center justify-between border-b border-black/10 px-6 py-5">
         <div>
           <h2 className="font-semibold">
-            Recent Test Drives
+            Recent Pruebas de manejo
           </h2>
 
           <p className="mt-1 text-xs text-black/40">
-            Latest test-drive requests
+            Últimas solicitudes de prueba de conducción
           </p>
         </div>
 
@@ -446,7 +446,7 @@ function RecentTestDrives({
           href="/admin/test-drives"
           className="text-xs font-semibold underline underline-offset-4"
         >
-          View all
+          Ver all
         </Link>
       </div>
 
@@ -478,20 +478,20 @@ function RecentTestDrives({
                 )}
               </div>
 
-              <StatusBadge
+              <EstadoBadge
                 status={testDrive.status}
               />
             </div>
           ))
         ) : (
-          <EmptyRow text="No test-drive requests yet." />
+          <EmptyRow text="Aún no hay solicitudes de prueba de conducción." />
         )}
       </div>
     </section>
   );
 }
 
-function StatusBadge({
+function EstadoBadge({
   status,
 }) {
   return (

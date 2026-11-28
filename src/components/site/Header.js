@@ -20,12 +20,12 @@ import {
 import { BUSINESS_NAME } from "@/lib/business";
 
 const navLinks = [
-  { href: "/", label: "Home", icon: Home },
-  { href: "/cars", label: "Cars", icon: Car },
+  { href: "/", label: "Inicio", icon: Home },
+  { href: "/cars", label: "Vehículos", icon: Car },
   // { href: "/models", label: "Models", icon: CarFront },
-  { href: "/services", label: "Services", icon: Wrench },
-  { href: "/about", label: "About", icon: Info },
-  { href: "/contact", label: "Contact", icon: Phone },
+  { href: "/services", label: "Servicios", icon: Wrench },
+  { href: "/about", label: "Nosotros", icon: Info },
+  { href: "/contact", label: "Contacto", icon: Phone },
 ];
 
 const navSpring = {
@@ -138,7 +138,7 @@ export default function Header() {
           {/* Navigation */}
 
           <nav
-            aria-label="Main navigation"
+            aria-label="Navegación principal"
             className="flex items-center lg:gap-8 gap-3.5"
           >
             {navLinks.map((link) => {
@@ -178,7 +178,7 @@ export default function Header() {
               href="/cars"
               className="rounded-full bg-white px-5 py-3 text-sm font-medium text-[#181818] transition hover:bg-white/90"
             >
-              View inventory
+Ver inventario
             </Link>
 
             {/* Admin */}
@@ -188,7 +188,7 @@ export default function Header() {
                 href="/admin"
                 className="inline-flex justify-center items-center text-center  gap-2 rounded-full border border-white/20 px-4 py-2.5 text-xs font-medium text-white transition active:scale-95"
               >
-                Admin Panel
+Panel de administración
               </Link>
             )}
           </div>

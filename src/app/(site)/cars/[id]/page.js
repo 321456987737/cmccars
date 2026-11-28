@@ -91,9 +91,9 @@ export default async function Page({ params }) {
 
   const images = car.images || [];
 
-  const formattedPrice = formatPrice(car.price, car.currency);
+  const formattedPrecio = formatPrecio(car.price, car.currency);
 
-  const formattedMileage = new Intl.NumberFormat("en-US").format(
+  const formattedKilometraje = new Intl.NumberFormat("en-US").format(
     car.mileage || 0,
   );
 
@@ -119,7 +119,7 @@ export default async function Page({ params }) {
               href="/cars"
               className="transition-colors duration-300 hover:text-black"
             >
-              Cars
+              Vehículos
             </Link>
 
             <span>/</span>
@@ -133,7 +133,7 @@ export default async function Page({ params }) {
             href="/cars"
             className="group hidden items-center gap-2 font-montserrat text-[9px] font-medium uppercase tracking-[0.18em] text-black/45 transition-colors duration-300 hover:text-black sm:flex md:text-[10px]"
           >
-            Back to inventory
+            Volver al inventario
             <ArrowUpRight
               size={14}
               strokeWidth={1.2}
@@ -219,7 +219,7 @@ export default async function Page({ params }) {
   ) : (
     <div className="flex aspect-[16/9] items-center justify-center bg-[#f1f1ef]">
       <span className="font-montserrat text-[10px] uppercase tracking-[0.22em] text-black/25 md:text-[11px]">
-        No images available
+        Sin imagens available
       </span>
     </div>
   )}
@@ -257,7 +257,7 @@ export default async function Page({ params }) {
                   <span className="h-[3px] w-[3px] rounded-full bg-black/20" />
 
                   <span>
-                    {formattedMileage} {car.mileageUnit}
+                    {formattedKilometraje} {car.mileageUnidad}
                   </span>
 
                   <span className="h-[3px] w-[3px] rounded-full bg-black/20" />
@@ -269,11 +269,11 @@ export default async function Page({ params }) {
 
                 <div className="mt-8 border-y border-black/10 py-6">
                   <p className="font-montserrat text-[9px] uppercase tracking-[0.22em] text-black/30 md:text-[10px]">
-                    Asking price
+                    Precio solicitado
                   </p>
 
                   <p className="mt-2 font-montserrat text-2xl font-medium tracking-[-0.02em] md:text-3xl lg:text-4xl">
-                    {formattedPrice}
+                    {formattedPrecio}
                   </p>
                 </div>
 
@@ -288,7 +288,7 @@ export default async function Page({ params }) {
     href={`/contact?car=${car._id}`}
     className="group flex items-center justify-center gap-3 bg-black px-6 py-4 font-montserrat text-[10px] font-medium uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-black/80 md:text-[11px]"
   >
-    Enquire about this vehicle
+    Consultar por este vehículo
 
     <ArrowUpRight
       size={15}
@@ -303,7 +303,7 @@ export default async function Page({ params }) {
     href={`/test-drive?car=${car._id}`}
     className="group flex items-center justify-center gap-3 border border-black/15 px-6 py-4 font-montserrat text-[10px] font-medium uppercase tracking-[0.18em] transition-all duration-300 hover:border-black hover:bg-black hover:text-white md:text-[11px]"
   >
-    Book a test drive
+    Reservar una prueba de manejo
 
     <ArrowUpRight
       size={15}
@@ -317,7 +317,7 @@ export default async function Page({ params }) {
                 {/* STOCK */}
 
                 <div className="mt-6 flex items-center justify-between font-montserrat text-[9px] uppercase tracking-[0.18em] text-black/30 md:text-[10px]">
-                  <span>Stock {car.stockNumber || "Available"}</span>
+                  <span>Inventario {car.stockNumber || "Disponible"}</span>
 
                   <span>{car.status}</span>
                 </div>
@@ -338,46 +338,46 @@ export default async function Page({ params }) {
 
             <div>
               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/30 md:text-[11px]">
-                The vehicle
+                El vehículo
               </p>
 
               <h2 className="mt-3 font-bebas text-5xl leading-[0.85] tracking-[-0.035em] md:text-6xl">
-                About this
+                Acerca de este
                 <br />
-                vehicle
+                vehículo
               </h2>
 
               <p className="mt-7 max-w-xl whitespace-pre-line font-montserrat text-[11px] leading-[1.9] tracking-[0.035em] text-black/45 md:text-[13px] md:leading-[1.85]">
                 {car.description ||
-                  "Contact our dealership for more information about this vehicle."}
+                  "Contact our dealership for more information about this vehículo."}
               </p>
             </div>
 
             {/* SPECIFICATIONS */}
 
             <div className="border-t border-black/10">
-              <SpecRow label="Make" value={car.make} />
+              <SpecRow label="Marca" value={car.make} />
 
-              <SpecRow label="Model" value={car.model} />
+              <SpecRow label="Modelo" value={car.model} />
 
-              <SpecRow label="Year" value={car.year} />
+              <SpecRow label="Año" value={car.year} />
 
               <SpecRow
-                label="Mileage"
-                value={`${formattedMileage} ${car.mileageUnit}`}
+                label="Kilometraje"
+                value={`${formattedKilometraje} ${car.mileageUnidad}`}
               />
 
-              <SpecRow label="Transmission" value={car.transmission} />
+              <SpecRow label="Transmisión" value={car.transmission} />
 
-              <SpecRow label="Fuel type" value={car.fuelType} />
+              <SpecRow label="Tipo de combustible" value={car.fuelType} />
 
-              <SpecRow label="Body type" value={car.bodyType} />
+              <SpecRow label="Tipo de carrocería" value={car.bodyType} />
 
               <SpecRow label="Exterior" value={car.exteriorColor || "—"} />
 
               <SpecRow label="Interior" value={car.interiorColor || "—"} />
 
-              <SpecRow label="Engine" value={car.engine || "—"} />
+              <SpecRow label="Motor" value={car.engine || "—"} />
             </div>
           </div>
         </div>
@@ -393,16 +393,16 @@ export default async function Page({ params }) {
             <div className="mb-10 flex items-end justify-between">
               <div>
                 <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/30 md:text-[11px]">
-                  Equipment
+                  Equipamiento
                 </p>
 
                 <h2 className="mt-3 font-bebas text-5xl leading-none tracking-[-0.03em] md:text-6xl">
-                  Features
+                  Características
                 </h2>
               </div>
 
               <span className="hidden font-montserrat text-[9px] uppercase tracking-[0.2em] text-black/25 sm:block md:text-[10px]">
-                {car.features.length} items
+                {car.features.length} elementos
               </span>
             </div>
 
@@ -435,17 +435,17 @@ export default async function Page({ params }) {
           <div className="grid gap-12 lg:grid-cols-[1fr_0.65fr] lg:items-end">
             <div>
               <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-white/30 md:text-[11px]">
-                The dealership
+                El concesionario
               </p>
 
               <h2 className="mt-4 max-w-4xl font-bebas text-[clamp(4rem,8vw,8rem)] leading-[0.8] tracking-[-0.045em]">
-                Come see it
+                Ven a verlo
                 <br />
-                in person.
+                en persona.
               </h2>
 
               <p className="mt-7 max-w-xl font-montserrat text-[11px] leading-[1.9] tracking-[0.035em] text-white/35 md:text-[13px] md:leading-[1.85]">
-                Visit our showroom to experience the vehicle in person and speak
+                Visit our showroom to experience the vehículo in person and speak
                 with our team about ownership, financing, trade-ins, and test
                 drives.
               </p>
@@ -473,7 +473,7 @@ export default async function Page({ params }) {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3 border border-white/25 px-5 py-3.5 font-montserrat text-[9px] font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-black md:text-[10px]"
                 >
-                  WhatsApp us
+                  Escríbenos por WhatsApp
                   <ArrowUpRight
                     size={14}
                     strokeWidth={1.2}
@@ -486,7 +486,7 @@ export default async function Page({ params }) {
                   rel="noopener noreferrer"
                   className="group inline-flex items-center gap-3 border border-white/25 px-5 py-3.5 font-montserrat text-[9px] font-medium uppercase tracking-[0.18em] text-white transition-colors hover:bg-white hover:text-black md:text-[10px]"
                 >
-                  Directions
+                  Cómo llegar
                   <ArrowUpRight
                     size={14}
                     strokeWidth={1.2}
@@ -511,11 +511,11 @@ export default async function Page({ params }) {
             <div className="mb-10 flex items-end justify-between gap-6">
               <div>
                 <p className="font-montserrat text-[10px] font-medium uppercase tracking-[0.3em] text-black/30 md:text-[11px]">
-                  Fresh to the collection
+                  Recién incorporados
                 </p>
 
                 <h2 className="mt-3 font-bebas text-5xl leading-[0.85] tracking-[-0.035em] sm:text-6xl md:text-7xl">
-                  Latest Arrivals
+                  Últimas llegadas
                 </h2>
               </div>
 
@@ -523,7 +523,7 @@ export default async function Page({ params }) {
                 href="/cars"
                 className="group hidden items-center gap-2 border-b border-black/20 pb-2 font-montserrat text-[9px] font-medium uppercase tracking-[0.18em] text-black/50 transition-colors duration-300 hover:border-black hover:text-black sm:flex md:text-[10px]"
               >
-                View all vehicles
+                Ver all vehículos
                 <ArrowUpRight
                   size={14}
                   strokeWidth={1.2}
@@ -551,7 +551,7 @@ export default async function Page({ params }) {
                 href="/cars"
                 className="group inline-flex items-center gap-3 bg-black px-6 py-4 font-montserrat text-[9px] font-medium uppercase tracking-[0.2em] text-white"
               >
-                View all vehicles
+                Ver all vehículos
                 <ArrowUpRight
                   size={14}
                   strokeWidth={1.2}
@@ -591,7 +591,7 @@ function SpecRow({ label, value }) {
 function LatestCarCard({ car, index }) {
   const image = car.images?.[0];
 
-  const price = formatPrice(car.price, car.currency);
+  const price = formatPrecio(car.price, car.currency);
 
   const mileage = new Intl.NumberFormat("en-US").format(car.mileage || 0);
 
@@ -608,7 +608,7 @@ function LatestCarCard({ car, index }) {
           />
         ) : (
           <div className="flex h-full items-center justify-center font-montserrat text-[10px] uppercase tracking-[0.2em] text-black/25">
-            No image
+            Sin imagen
           </div>
         )}
 
@@ -662,7 +662,7 @@ function LatestCarCard({ car, index }) {
           <span className="h-[3px] w-[3px] rounded-full bg-black/20" />
 
           <span>
-            {mileage} {car.mileageUnit}
+            {mileage} {car.mileageUnidad}
           </span>
 
           <span className="h-[3px] w-[3px] rounded-full bg-black/20" />
@@ -678,7 +678,7 @@ function LatestCarCard({ car, index }) {
    PRICE FORMATTER
 ============================================================ */
 
-function formatPrice(price, currency) {
+function formatPrecio(price, currency) {
   if (typeof price !== "number") {
     return "";
   }
